@@ -15,3 +15,7 @@ Kolejne stadia prostego silnika 3D w Pythonie. Do tego w pliku PDF i HTML znajdu
 eksp-eng-obj-import.py – j.w. z importem bryły z pliku obj – nieopisany w PDF
 
 eksp-eng-shaded.py – j.w. z cieniowaniem płaskim – nieopisany w PDF
+
+Obrazek: http://s15.postimg.org/rv66o0uvf/1_crowbar.png
+
+Filmik: http://ubuntuone.com/2Tvxoc7CIZ9BHSndAE69xq
