@@ -4325,6 +4325,282 @@ Przykładowe transformacje można zobaczyć w funkcji:
 def transformacja(x, y, z, krok):
 \end_layout
 
+\begin_layout Standard
+
+\emph on
+krok
+\emph default
+ jest jakąś zmienną, w naszym przypadku oznaczającą numer klatki animacji.
+ Przesunięcie punktu wzdłuż osi X, żależne od tej zmiennej, będzie wyglądało
+ np.
+ tak:
+\end_layout
+
+\begin_layout LyX-Code
+przesx = 0.05 * krok
+\end_layout
+
+\begin_layout LyX-Code
+x = x + przesx
+\end_layout
+
+\begin_layout Standard
+Podobnie dla Y i Z będzie to:
+\end_layout
+
+\begin_layout LyX-Code
+y = y + przesy
+\end_layout
+
+\begin_layout LyX-Code
+z = z + przesz
+\end_layout
+
+\begin_layout Standard
+Widać, że chcąc przesunąć obiekt musimy dodawać określone wartości do aktuanych
+ współrzednych, tak by uzyskać nowe współrzedne.
+\end_layout
+
+\begin_layout Standard
+Chcąc przeskalować bryłę w którymś z kierunków musimy za to mnożyć współrzedne
+ przez współczynniki skali.
+ W kodzie ma to następującą postać:
+\end_layout
+
+\begin_layout LyX-Code
+x = x * (1 + wzrostx)
+\end_layout
+
+\begin_layout LyX-Code
+y = y * (1 + wzrosty)     
+\end_layout
+
+\begin_layout LyX-Code
+z = z * (1 + wzrostz)
+\end_layout
+
+\begin_layout Standard
+Przykładowo jeśli 
+\emph on
+wzrostx
+\emph default
+ ma wartość 0,5, to bryła zostanie rozciągnięta o 50% względem rozmiarów
+ początkowych.
+ Powyższe równania są wynikiem zależności zapisanych w takich działaniach
+ na macierzach:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\begin{bmatrix}x\\
+y\\
+z
+\end{bmatrix}=\begin{bmatrix}\left(1+wzrostx\right) & 0 & 0\\
+0 & \left(1+wzrosty\right) & 0\\
+0 & 0 & \left(1+wzrostz\right)
+\end{bmatrix}\times\begin{bmatrix}x\\
+y\\
+z
+\end{bmatrix}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Przypadek ogólny wygląda następująco:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\begin{bmatrix}b_{0}\\
+b_{1}\\
+b_{2}
+\end{bmatrix}=\begin{bmatrix}c_{00} & c_{01} & c_{02}\\
+c_{10} & c_{11} & c_{12}\\
+c_{20} & c_{21} & c_{22}
+\end{bmatrix}\times\begin{bmatrix}a_{0}\\
+a_{1}\\
+a_{2}
+\end{bmatrix}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\begin{bmatrix}b_{0}\\
+b_{1}\\
+b_{2}
+\end{bmatrix}=\begin{bmatrix}c_{00}a_{0}+c_{01}a_{1}+c_{02}a_{2}\\
+c_{10}a_{0}+c_{11}a_{1}+c_{12}a_{2}\\
+c_{20}a_{0}+c_{21}a_{1}+c_{22}a_{2}
+\end{bmatrix}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Dla pierwszego równania, czyli x = x * (1 + wzrostx):
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $x=\left(1+wzrostx\right)\cdot x+0\cdot y+0\cdot z$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Najbardziej skomplikowanymi tranformacjami są obroty.
+ W programie zostały one umieszone we wsłasnych funkcjach.
+ Wynikowe współrzędne dostały nowe oznaczenia zmiennych (xt, yt, zt) by
+ kolejne oblicznenia nie korzystały przypadkowo ze zmienionych wspólrzędnych
+ zamiast oryginalnych.
+ Wykorzystany został moduł Pythona math zaimportowany na początku programu:
+\end_layout
+
+\begin_layout LyX-Code
+import math
+\end_layout
+
+\begin_layout Standard
+Obrót w płaszczyźnie XY, gdzie 
+\emph on
+katXY
+\emph default
+ to kąt obrotu:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\begin{bmatrix}xt\\
+yt\\
+zt
+\end{bmatrix}=\begin{bmatrix}\left(math.cos(katXY)\right) & \left(-math.sin(katXY)\right) & 0\\
+\left(math.sin(katXY)\right) & \left(math.cos(katXY)\right) & 0\\
+0 & 0 & 1
+\end{bmatrix}\times\begin{bmatrix}x\\
+y\\
+z
+\end{bmatrix}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Co w kodzie programu ma postać:
+\end_layout
+
+\begin_layout LyX-Code
+def obrotXY(x, y, z, katXY):     
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+xt = x * math.cos(katXY) - y * math.sin(katXY)     
+\end_layout
+
+\begin_layout LyX-Code
+yt = x * math.sin(katXY) + y * math.cos(katXY)
+\end_layout
+
+\begin_layout LyX-Code
+zt = z     
+\end_layout
+
+\begin_layout LyX-Code
+return xt, yt, zt
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+Obrót w płaszczyźnie XZ:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\begin{bmatrix}xt\\
+yt\\
+zt
+\end{bmatrix}=\begin{bmatrix}\left(math.cos(katXZ)\right) & 0 & \left(math.sin(katXZ)\right)\\
+0 & 1 & 0\\
+\left(-math.sin(katXZ)\right) & 0 & \left(math.cos(katXZ)\right)
+\end{bmatrix}\times\begin{bmatrix}x\\
+y\\
+z
+\end{bmatrix}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout LyX-Code
+def obrotXZ(x, y, z, katXZ):     
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+xt = x * math.cos(katXZ) + z * math.sin(katXZ)     
+\end_layout
+
+\begin_layout LyX-Code
+yt = y     
+\end_layout
+
+\begin_layout LyX-Code
+zt = -x * math.sin(katXZ) + z * math.cos(katXZ)     
+\end_layout
+
+\begin_layout LyX-Code
+return xt, yt, zt
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+Obrót w płaszczyźnie YZ:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\begin{bmatrix}xt\\
+yt\\
+zt
+\end{bmatrix}=\begin{bmatrix}1 & 0 & 0\\
+0 & \left(math.cos(katYZ)\right) & \left(-math.sin(katYZ)\right)\\
+0 & \left(math.sin(katYZ)\right) & \left(math.cos(katYZ)\right)
+\end{bmatrix}\times\begin{bmatrix}x\\
+y\\
+z
+\end{bmatrix}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout LyX-Code
+def obrotYZ(x, y, z, katYZ):     
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+xt = x     
+\end_layout
+
+\begin_layout LyX-Code
+yt = y * math.cos(katYZ) - z * math.sin(katYZ)     
+\end_layout
+
+\begin_layout LyX-Code
+zt = y * math.sin(katYZ) + z * math.cos(katYZ)     
+\end_layout
+
+\begin_layout LyX-Code
+return xt, yt, zt 
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+
+\end_layout
+
 \begin_layout Section
 Wczytywanie modeli
 \end_layout
