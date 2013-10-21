@@ -10,11 +10,11 @@ Kolejne stadia prostego silnika 3D w Pythonie. Do tego w pliku PDF i HTML znajdu
 
 4_trojkraster.py – rasteryzer trójkąta
 
-5_raster-trans.py – projekcja całego sześcianu z rasteryzacją, uwzględnieniem głębokości obiektów (uwaga: wyliczenie Z bez zgodności z perspektywą) i transformacjami (obrót, skalowanie, przesunięcie – nieopisane w PDF)
+5_raster-trans.py – projekcja całego sześcianu z rasteryzacją, uwzględnieniem głębokości obiektów (uwaga: wyliczenie Z bez zgodności z perspektywą) i transformacjami (obrót, skalowanie, przesunięcie)
 
-eksp-eng-obj-import.py – j.w. z importem bryły z pliku obj – nieopisany w PDF
+eksp-eng-obj-import.py – j.w. z importem bryły z pliku obj
 
-eksp-eng-shaded.py – j.w. z cieniowaniem płaskim – nieopisany w PDF
+eksp-eng-shaded.py – j.w. z cieniowaniem płaskim 
 
 Obrazek: http://s15.postimg.org/rv66o0uvf/1_crowbar.png
 
