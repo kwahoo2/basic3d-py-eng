@@ -71,6 +71,16 @@ Grafika gier 3D od podstaw
 Trójwymiarowe gry komputerowe już niemal od dwóch dekad rządzą się tymi
  samymi prawami.
  Spróbujemy zbudować minimalistyczny silnik 3D i zbadać podstawy jego działania.
+ Omawiane przykłady można znaleźć w repozytorium 
+\begin_inset CommandInset href
+LatexCommand href
+name "github.com/kwahoo2/basic3d-py-eng"
+target "https://github.com/kwahoo2/basic3d-py-eng"
+
+\end_inset
+
+ Stamtąd polecam pobierać kod źródłowy - interpreter może mieć problemy
+ z kodem skopiowanym z listingów osadzonych w niniejszym PDF-ie.
  
 \end_layout
 
@@ -187,7 +197,15 @@ $ python naszprogram.py
 \begin_layout Standard
 Na początek uruchomimy prosty program wyświetlający puste okno - umożliwi
  on sprawdzenie czy PyGame jest prawidłowo zainstalowane.
- Utwórzmy plik z rozszerzeniem *.py mający następującą treść:
+ Utwórzmy plik z rozszerzeniem *.py mający następującą treść (
+\begin_inset CommandInset href
+LatexCommand href
+name "Kod progamu do pobrania"
+target "https://github.com/kwahoo2/basic3d-py-eng/blob/master/basic3dengine/1_pygametest.py"
+
+\end_inset
+
+):
 \end_layout
 
 \begin_layout LyX-Code
@@ -604,6 +622,14 @@ Utwórzmy program wyświetlający projekcję wierzchołków sześcianu jak na po
  zrzucie ekranu.
  Poniżej znajduje się pełny listing kodu.
  
+\begin_inset CommandInset href
+LatexCommand href
+name "Kod do pobrania"
+target "https://github.com/kwahoo2/basic3d-py-eng/blob/master/basic3dengine/2_multiprojekcjapygame.py "
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Quotation
@@ -1103,6 +1129,17 @@ Model drutowy, trójkąty
 \begin_inset Graphics
 	filename 8_proj_kraw.png
 	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset href
+LatexCommand href
+name "Kod programu do pobrania"
+target "https://github.com/kwahoo2/basic3d-py-eng/blob/master/basic3dengine/3_krawprojekcjapygame.py"
 
 \end_inset
 
@@ -1647,6 +1684,17 @@ Rasteryzacja pojedyńczego trójkąta
 \begin_inset Graphics
 	filename 10_trojk_raster.png
 	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset href
+LatexCommand href
+name "Kod programu do pobrania"
+target "https://github.com/kwahoo2/basic3d-py-eng/blob/master/basic3dengine/4_trojkraster.py"
 
 \end_inset
 
@@ -2550,6 +2598,17 @@ Projekcja i rasteryzacja bryły
 \begin_inset Graphics
 	filename 12_raster-trans.png
 	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset href
+LatexCommand href
+name "Kod programu do pobrania"
+target "https://github.com/kwahoo2/basic3d-py-eng/blob/master/basic3dengine/5_raster-trans.py"
 
 \end_inset
 
@@ -4597,16 +4656,3546 @@ return xt, yt, zt
 \end_layout
 
 \end_deeper
-\begin_layout Standard
-
-\end_layout
-
 \begin_layout Section
 Wczytywanie modeli
 \end_layout
 
+\begin_layout Standard
+\begin_inset Graphics
+	filename 13_obj_import.png
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset href
+LatexCommand href
+name "Kod programu do pobrania"
+target "https://github.com/kwahoo2/basic3d-py-eng/blob/master/basic3dengine/eksp-eng-obj-import.py"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset href
+LatexCommand href
+name "Model (łom) wczytywany przez program do pobrania"
+target "https://github.com/kwahoo2/basic3d-py-eng/blob/master/basic3dengine/crowbar.obj"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+#!/usr/bin/python
+\end_layout
+
+\begin_layout Plain Layout
+
+# -*- coding: utf-8 -*-
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+import pygame, math, sys, random
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+def main():
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\end_layout
+
+\begin_layout Plain Layout
+
+    xw = 800
+\end_layout
+
+\begin_layout Plain Layout
+
+    yw = 600
+\end_layout
+
+\begin_layout Plain Layout
+
+    screen = pygame.display.set_mode((xw, yw))
+\end_layout
+
+\begin_layout Plain Layout
+
+    lipx = xw * yw #całkowita liczba pikseli
+\end_layout
+
+\begin_layout Plain Layout
+
+    fizxw = 2.0 #"fizyczna" (w jednostach przestrzeni 3D) szerokość okna
+ widzenia
+\end_layout
+
+\begin_layout Plain Layout
+
+    fov = math.radians(75) #określenie szerokosci pola widzenia
+\end_layout
+
+\begin_layout Plain Layout
+
+    zp = 1000.0 #odległość od środka układu współrzednych do "ekranu"
+\end_layout
+
+\begin_layout Plain Layout
+
+    zk = fizxw / (2 * math.tan(fov / 2)) #odległość od "ekranu" do obserwatora
+\end_layout
+
+\begin_layout Plain Layout
+
+    skala = int(xw / fizxw) #skala n pikseli na 1 jednostkę przestrzeni
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    bufram = [] #z-bufor
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    for i in range(0, lipx):
+\end_layout
+
+\begin_layout Plain Layout
+
+        bufram.append(-100000.0) #tworzenie nowej czystej listy dla koloru
+ głębi z (float)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    background_colour = (255,255,255)
+\end_layout
+
+\begin_layout Plain Layout
+
+    screen.fill(background_colour)
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\end_layout
+
+\begin_layout Plain Layout
+
+    zbiorkolor = ((0, 0, 255), (0, 255, 0), (255, 0, 0), (0, 255, 255),
+ (255, 255, 0), (255, 0, 255)) 
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\end_layout
+
+\begin_layout Plain Layout
+
+    chmura, zbiortroj = importujdane() #pobranie sanych z pliku
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    running = True #start główeje pętli programu
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\end_layout
+
+\begin_layout Plain Layout
+
+    krok = 0
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    while running:
+\end_layout
+
+\begin_layout Plain Layout
+
+        screen.fill(background_colour) #czyszczenie klatki
+\end_layout
+
+\begin_layout Plain Layout
+
+        for i in range(0, lipx):
+\end_layout
+
+\begin_layout Plain Layout
+
+            bufram[i] = -100000.0 # wypełnianie Z bufora bardzo małymi wartościam
+i Z (daleko od obserwatora)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+        for tr in range(0, len(zbiortroj)): #pętla 12-elementowa, 0-11,
+ bo ostania jest pomijana, len - długość
+\end_layout
+
+\begin_layout Plain Layout
+
+            trojkat = zbiortroj[tr]
+\end_layout
+
+\begin_layout Plain Layout
+
+            #print trojkat
+\end_layout
+
+\begin_layout Plain Layout
+
+            xps = [0, 0, 0] #tymczasowa lista punktów [] to listy, () to
+ krotki 
+\end_layout
+
+\begin_layout Plain Layout
+
+            yps = [0, 0, 0]
+\end_layout
+
+\begin_layout Plain Layout
+
+            zf = [0.0, 0.0, 0.0]
+\end_layout
+
+\begin_layout Plain Layout
+
+            for i in range (0, 3):
+\end_layout
+
+\begin_layout Plain Layout
+
+                numerpunktu = trojkat[i] #pobranie indeksu punktu, "zbiortroj"
+ ma wkazywac kolejne punkty z "chmura"
+\end_layout
+
+\begin_layout Plain Layout
+
+                punkt = chmura[numerpunktu] #wybranie kolejnej krotki z
+ krotki "chmura"
+\end_layout
+
+\begin_layout Plain Layout
+
+                x = punkt[0] #wybrany pierwsza współrzedna
+\end_layout
+
+\begin_layout Plain Layout
+
+                y = punkt[1]
+\end_layout
+
+\begin_layout Plain Layout
+
+                z = punkt[2]
+\end_layout
+
+\begin_layout Plain Layout
+
+                x, y, z = transformacja(x, y, z, krok) #wywołanie funcji
+ transformacji
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+                xp = zk * x /(zp + zk - z) #wyliczenie projekcji dla x-ów
+\end_layout
+
+\begin_layout Plain Layout
+
+                yp = zk * y /(zp + zk - z) #wyliczenie projekcji dla y-ów
+\end_layout
+
+\begin_layout Plain Layout
+
+                #skala = 100 #skala 100 pikseli na 1 jednostkę przestrzeni
+\end_layout
+
+\begin_layout Plain Layout
+
+                xps[i] = int((xw / 2) + (xp * skala)) #wysrodkowanie, skalowanie
+ oraz konwersja do liczby całkowitej
+\end_layout
+
+\begin_layout Plain Layout
+
+                yps[i] = int((yw / 2) - (yp * skala)) #wysrodkowanie, skalowanie
+ i odwrócenie y oraz konwersja do liczby całkowitej
+\end_layout
+
+\begin_layout Plain Layout
+
+                zf[i] = z    
+\end_layout
+
+\begin_layout Plain Layout
+
+            kolortrojk = zbiorkolor[trojkat[3]] #czwarty zrgument trojkata
+ to kolor
+\end_layout
+
+\begin_layout Plain Layout
+
+            #print [xps[0], yps[0], zf[0]], [xps[1], yps[1], zf[1]], [xps[2],
+ yps[2], zf[2]], kolortrojk
+\end_layout
+
+\begin_layout Plain Layout
+
+            bufram = rysujtrojk([xps[0], yps[0], zf[0]], [xps[1], yps[1],
+ zf[1]], [xps[2], yps[2], zf[2]], kolortrojk , xw, yw, screen, bufram, zp)
+ #wywołanie rasterizera trójkąta ze zwrotem z-bufora
+\end_layout
+
+\begin_layout Plain Layout
+
+        pygame.display.flip()
+\end_layout
+
+\begin_layout Plain Layout
+
+        krok = krok + 1
+\end_layout
+
+\begin_layout Plain Layout
+
+        for event in pygame.event.get(): #przerwanie pętli
+\end_layout
+
+\begin_layout Plain Layout
+
+            if event.type == pygame.QUIT:
+\end_layout
+
+\begin_layout Plain Layout
+
+                running = False
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+def rysujtrojk(wierz0, wierz1, wierz2, kolortrojk, xw, yw, screen, bufram,
+ zp): #rasterizer trójkątów
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    while 1: #prosty algorytm sortowania 3 elementów
+\end_layout
+
+\begin_layout Plain Layout
+
+        if wierz0[1] > wierz1[1]:
+\end_layout
+
+\begin_layout Plain Layout
+
+            wierztemp = wierz0
+\end_layout
+
+\begin_layout Plain Layout
+
+            wierz0 = wierz1
+\end_layout
+
+\begin_layout Plain Layout
+
+            wierz1 = wierztemp    
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+        if wierz1[1] > wierz2[1]:
+\end_layout
+
+\begin_layout Plain Layout
+
+            wierztemp = wierz1
+\end_layout
+
+\begin_layout Plain Layout
+
+            wierz1 = wierz2
+\end_layout
+
+\begin_layout Plain Layout
+
+            wierz2 = wierztemp 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+        if wierz0[1] <= wierz1[1] and wierz1[1] <= wierz2[1]: #przerwanie
+ gdy uporządkowane rosnąco wg 2 elementu
+\end_layout
+
+\begin_layout Plain Layout
+
+            break 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    #print wierz0, wierz1, wierz2
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    xps0 = wierz0[0] #od lewej do prawej
+\end_layout
+
+\begin_layout Plain Layout
+
+    yps0 = wierz0[1] #z góry na dół
+\end_layout
+
+\begin_layout Plain Layout
+
+    zf0 = wierz0[2] #głębość Z w float
+\end_layout
+
+\begin_layout Plain Layout
+
+    xps1 = wierz1[0] #współrzedne wierzchołków trojkąta od najmwyzsze (najmniejs
+ze y) do najniższego
+\end_layout
+
+\begin_layout Plain Layout
+
+    yps1 = wierz1[1]
+\end_layout
+
+\begin_layout Plain Layout
+
+    zf1 = wierz1[2]
+\end_layout
+
+\begin_layout Plain Layout
+
+    xps2 = wierz2[0]
+\end_layout
+
+\begin_layout Plain Layout
+
+    yps2 = wierz2[1]
+\end_layout
+
+\begin_layout Plain Layout
+
+    zf2 = wierz2[2]
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    dx10 = xps1 - xps0
+\end_layout
+
+\begin_layout Plain Layout
+
+    dx21 = xps2 - xps1
+\end_layout
+
+\begin_layout Plain Layout
+
+    dx20 = xps2 - xps0
+\end_layout
+
+\begin_layout Plain Layout
+
+    dy10 = yps1 - yps0
+\end_layout
+
+\begin_layout Plain Layout
+
+    dy21 = yps2 - yps1
+\end_layout
+
+\begin_layout Plain Layout
+
+    dy20 = yps2 - yps0
+\end_layout
+
+\begin_layout Plain Layout
+
+    dzf10 = zf1 - zf0
+\end_layout
+
+\begin_layout Plain Layout
+
+    dzf21 = zf2 - zf1
+\end_layout
+
+\begin_layout Plain Layout
+
+    dzf20 = zf2 - zf0
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    if dx10 != 0 or dy10 != 0:
+\end_layout
+
+\begin_layout Plain Layout
+
+        dwyp10 = math.sqrt(float(math.pow(dx10,2)+math.pow((dy10),2))) #początkowa
+ odległosć między punktami na XY dla 10
+\end_layout
+
+\begin_layout Plain Layout
+
+        zprop10 = dzf10 / dwyp10 #proporcja przesunięcia XY dla 10 do przesunięc
+ia Z do użycia na krawędziach trójkąta
+\end_layout
+
+\begin_layout Plain Layout
+
+    else:
+\end_layout
+
+\begin_layout Plain Layout
+
+        zprop10 = 0
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\end_layout
+
+\begin_layout Plain Layout
+
+    if dx21 != 0 or dy21 != 0:
+\end_layout
+
+\begin_layout Plain Layout
+
+        dwyp21 = math.sqrt(float(math.pow(dx21,2)+math.pow((dy21),2)))
+\end_layout
+
+\begin_layout Plain Layout
+
+        zprop21 = dzf21 / dwyp21
+\end_layout
+
+\begin_layout Plain Layout
+
+    else:
+\end_layout
+
+\begin_layout Plain Layout
+
+        zprop21 = 0
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    if dx20 != 0 or dy20 != 0:
+\end_layout
+
+\begin_layout Plain Layout
+
+        dwyp20 = math.sqrt(float(math.pow(dx20,2)+math.pow((dy20),2)))
+\end_layout
+
+\begin_layout Plain Layout
+
+        zprop20 = dzf20 / dwyp20
+\end_layout
+
+\begin_layout Plain Layout
+
+    else:
+\end_layout
+
+\begin_layout Plain Layout
+
+        zprop20 = 0
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+#rasterizer buduje trójkąty z linii poziomych      
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    lewy = False #pomocnicza zmienna, jeśli true, to 1 jest po lewej 0-2
+\end_layout
+
+\begin_layout Plain Layout
+
+    if dy10 != 0  and dy21 != 0 and dy20 != 0: #tylko gdy y są różne, bez
+ dzielenia przez 0 
+\end_layout
+
+\begin_layout Plain Layout
+
+        if ((float(dx10) / float(dy10)) < (float(dx20) / float(dy20))):#przypade
+k gdy 1 jest po lewej 0-2, konwersja int do float dla wyzszej dokładności
+ porównania
+\end_layout
+
+\begin_layout Plain Layout
+
+            lewy = True
+\end_layout
+
+\begin_layout Plain Layout
+
+        else:
+\end_layout
+
+\begin_layout Plain Layout
+
+            lewy = False 
+\end_layout
+
+\begin_layout Plain Layout
+
+    elif dy10 == 0 and dy21 != 0 and dy20 != 0: #gdy poziomo miedzy 0-1
+\end_layout
+
+\begin_layout Plain Layout
+
+        if dx10 < 0:
+\end_layout
+
+\begin_layout Plain Layout
+
+            lewy = True
+\end_layout
+
+\begin_layout Plain Layout
+
+        else:
+\end_layout
+
+\begin_layout Plain Layout
+
+            lewy = False
+\end_layout
+
+\begin_layout Plain Layout
+
+    elif dy10 != 0 and dy21 == 0 and dy20 != 0: #gdy poziomo miedzy 2-1
+\end_layout
+
+\begin_layout Plain Layout
+
+        if dx21 > 0:
+\end_layout
+
+\begin_layout Plain Layout
+
+            lewy = True
+\end_layout
+
+\begin_layout Plain Layout
+
+        else:
+\end_layout
+
+\begin_layout Plain Layout
+
+            lewy = False
+\end_layout
+
+\begin_layout Plain Layout
+
+    else: #zwykle gdy poziomo miedzy 2-0, to 1-0 i 2-1, linia prosta pozioma
+\end_layout
+
+\begin_layout Plain Layout
+
+        if dx20 > 0:
+\end_layout
+
+\begin_layout Plain Layout
+
+            lewy = True
+\end_layout
+
+\begin_layout Plain Layout
+
+        else:
+\end_layout
+
+\begin_layout Plain Layout
+
+            lewy = False
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+        
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    if (lewy == True):#przypadek gdy 1 jest po lewej 0-2
+\end_layout
+
+\begin_layout Plain Layout
+
+        for y in range(yps0, yps2): 
+\end_layout
+
+\begin_layout Plain Layout
+
+            if y < yps1: #gdy jest się między 0 a 1 
+\end_layout
+
+\begin_layout Plain Layout
+
+                if dy10 != 0:
+\end_layout
+
+\begin_layout Plain Layout
+
+                    x0 = xps0 + (y-yps0) * dx10 / dy10 #x0 zawsze po lewej
+ w stosunku do x1
+\end_layout
+
+\begin_layout Plain Layout
+
+                else:
+\end_layout
+
+\begin_layout Plain Layout
+
+                    x0 = xps1
+\end_layout
+
+\begin_layout Plain Layout
+
+                if dy20 != 0:
+\end_layout
+
+\begin_layout Plain Layout
+
+                    x1 = xps0 + (y-yps0) * dx20 / dy20
+\end_layout
+
+\begin_layout Plain Layout
+
+                else:
+\end_layout
+
+\begin_layout Plain Layout
+
+                    x1 = xps0
+\end_layout
+
+\begin_layout Plain Layout
+
+                dwyp = math.sqrt(float(math.pow(xps1 - x0,2)+math.pow((yps1
+ - y),2))) #x0 i y podąza między punktami 1 i 0
+\end_layout
+
+\begin_layout Plain Layout
+
+                z0 = zf1 - dwyp * zprop10 #z każdym krokiem mniejsza odległośc,
+ to coraz mniej odejmowane od punktu końcowego zf1
+\end_layout
+
+\begin_layout Plain Layout
+
+                dwyp = math.sqrt(float(math.pow(xps2 - x1,2)+math.pow((yps2
+ - y),2))) #x1 i y podąza między 2 i 0
+\end_layout
+
+\begin_layout Plain Layout
+
+                z1 = zf2 - dwyp * zprop20
+\end_layout
+
+\begin_layout Plain Layout
+
+                #print x0, y, z0
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+            else: #gdy jest się między 1 a 2
+\end_layout
+
+\begin_layout Plain Layout
+
+                if dy21 != 0:
+\end_layout
+
+\begin_layout Plain Layout
+
+                    x0 = xps1 + (y-yps1) * dx21 / dy21
+\end_layout
+
+\begin_layout Plain Layout
+
+                else:
+\end_layout
+
+\begin_layout Plain Layout
+
+                    x0 = xps1
+\end_layout
+
+\begin_layout Plain Layout
+
+                if dy20 != 0:
+\end_layout
+
+\begin_layout Plain Layout
+
+                    x1 = xps0 + (y-yps0) * dx20 / dy20
+\end_layout
+
+\begin_layout Plain Layout
+
+                else:
+\end_layout
+
+\begin_layout Plain Layout
+
+                    x1 = xps2
+\end_layout
+
+\begin_layout Plain Layout
+
+                dwyp = math.sqrt(float(math.pow(xps2 - x0,2)+math.pow((yps2
+ - y),2))) #x0 i y podąza między 2 i 1
+\end_layout
+
+\begin_layout Plain Layout
+
+                z0 = zf2 - dwyp * zprop21
+\end_layout
+
+\begin_layout Plain Layout
+
+                dwyp = math.sqrt(float(math.pow(xps2 - x1,2)+math.pow((yps2
+ - y),2))) #x1 i y podąza między 2 i 0
+\end_layout
+
+\begin_layout Plain Layout
+
+                z1 = zf2 - dwyp * zprop20
+\end_layout
+
+\begin_layout Plain Layout
+
+                #print x0, y, z0
+\end_layout
+
+\begin_layout Plain Layout
+
+            for x in range(x0, x1):
+\end_layout
+
+\begin_layout Plain Layout
+
+                if x >=0 and x < xw and y >=0 and y < yw: #ograniczenie
+ tylko do obszaru ekranu
+\end_layout
+
+\begin_layout Plain Layout
+
+                    #screen.set_at((x, y), (0, 0, 0))
+\end_layout
+
+\begin_layout Plain Layout
+
+                    z = z1 - ((z1 - z0) / float(x1 - x0)) * float(x1 - x)
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+                    #print x, y, z
+\end_layout
+
+\begin_layout Plain Layout
+
+                    pozpix = x + y * xw
+\end_layout
+
+\begin_layout Plain Layout
+
+                    if (z > bufram[pozpix] and z < zp): #zapisuje piksel
+ tylko gdy jest blizej obserwatora niz pozostałe
+\end_layout
+
+\begin_layout Plain Layout
+
+                        screen.set_at((x, y), (kolortrojk))
+\end_layout
+
+\begin_layout Plain Layout
+
+                        bufram[pozpix] = z
+\end_layout
+
+\begin_layout Plain Layout
+
+    else:
+\end_layout
+
+\begin_layout Plain Layout
+
+        for y in range(yps0, yps2): 
+\end_layout
+
+\begin_layout Plain Layout
+
+            if y < yps1: #gdy jest się między 0 a 1 
+\end_layout
+
+\begin_layout Plain Layout
+
+                if dy10 != 0:
+\end_layout
+
+\begin_layout Plain Layout
+
+                    x1 = xps0 + (y-yps0) * dx10 / dy10 #zamiana początku
+ z koncem w tym przypadku
+\end_layout
+
+\begin_layout Plain Layout
+
+                else:
+\end_layout
+
+\begin_layout Plain Layout
+
+                    x1 = xps1
+\end_layout
+
+\begin_layout Plain Layout
+
+                if dy20 != 0:                
+\end_layout
+
+\begin_layout Plain Layout
+
+                    x0 = xps0 + (y-yps0) * dx20 / dy20
+\end_layout
+
+\begin_layout Plain Layout
+
+                else:
+\end_layout
+
+\begin_layout Plain Layout
+
+                    x0 = xps0
+\end_layout
+
+\begin_layout Plain Layout
+
+                dwyp = math.sqrt(float(math.pow(xps1 - x1,2)+math.pow((yps1
+ - y),2))) #x1 i y podąza między punktami 1 i 0
+\end_layout
+
+\begin_layout Plain Layout
+
+                z1 = zf1 - dwyp * zprop10 #z każdym krokiem mniejsza odległośc,
+ to coraz mniej odejmowane od punktu końcowego zf1
+\end_layout
+
+\begin_layout Plain Layout
+
+                dwyp = math.sqrt(float(math.pow(xps2 - x0,2)+math.pow((yps2
+ - y),2))) #x0 i y podąza między 2 i 0
+\end_layout
+
+\begin_layout Plain Layout
+
+                z0 = zf2 - dwyp * zprop20
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+            else: #gdy jest się między 1 a 2
+\end_layout
+
+\begin_layout Plain Layout
+
+                if dy21 != 0:
+\end_layout
+
+\begin_layout Plain Layout
+
+                    x1 = xps1 + (y-yps1) * dx21 / dy21
+\end_layout
+
+\begin_layout Plain Layout
+
+                else:
+\end_layout
+
+\begin_layout Plain Layout
+
+                    x1 = xps1
+\end_layout
+
+\begin_layout Plain Layout
+
+                if dy20 != 0:
+\end_layout
+
+\begin_layout Plain Layout
+
+                    x0 = xps0 + (y-yps0) * dx20 / dy20
+\end_layout
+
+\begin_layout Plain Layout
+
+                else:
+\end_layout
+
+\begin_layout Plain Layout
+
+                    x0 = xps2
+\end_layout
+
+\begin_layout Plain Layout
+
+                dwyp = math.sqrt(float(math.pow(xps2 - x1,2)+math.pow((yps2
+ - y),2))) #x1 i y podąza między 2 i 1
+\end_layout
+
+\begin_layout Plain Layout
+
+                z1 = zf2 - dwyp * zprop21
+\end_layout
+
+\begin_layout Plain Layout
+
+                dwyp = math.sqrt(float(math.pow(xps2 - x0,2)+math.pow((yps2
+ - y),2))) #x0 i y podąza między 2 i 0
+\end_layout
+
+\begin_layout Plain Layout
+
+                z0 = zf2 - dwyp * zprop20
+\end_layout
+
+\begin_layout Plain Layout
+
+            for x in range(x0, x1):
+\end_layout
+
+\begin_layout Plain Layout
+
+                if x >=0 and x < xw and y >=0 and y < yw: #ograniczenie
+ tylko do obszaru ekranu
+\end_layout
+
+\begin_layout Plain Layout
+
+                    #screen.set_at((x, y), (0, 0, 0))
+\end_layout
+
+\begin_layout Plain Layout
+
+                    z = z1 - ((z1 - z0) / float(x1 - x0)) * float(x1 - x)
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+                    pozpix = x + y * xw
+\end_layout
+
+\begin_layout Plain Layout
+
+                    if (z > bufram[pozpix] and z < zp): #zapisuje piksel
+ tylko gdy jest blizej obserwatora niz pozostałe
+\end_layout
+
+\begin_layout Plain Layout
+
+                        screen.set_at((x, y), (kolortrojk))
+\end_layout
+
+\begin_layout Plain Layout
+
+                        bufram[pozpix] = z
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    #pygame.display.flip()
+\end_layout
+
+\begin_layout Plain Layout
+
+    return bufram
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+def transformacja(x, y, z, krok):
+\end_layout
+
+\begin_layout Plain Layout
+
+    y = y - 200.0
+\end_layout
+
+\begin_layout Plain Layout
+
+    #wzrostx = 0.01 * krok
+\end_layout
+
+\begin_layout Plain Layout
+
+    #wzrosty = 0.03 * krok
+\end_layout
+
+\begin_layout Plain Layout
+
+    #wzrostz = -0.02 * krok
+\end_layout
+
+\begin_layout Plain Layout
+
+    #x = x * (1 + wzrostx) #skalowanie w x
+\end_layout
+
+\begin_layout Plain Layout
+
+    #y = y * (1 + wzrosty) #skalowanie w y
+\end_layout
+
+\begin_layout Plain Layout
+
+    #z = z * (1 + wzrostz) #skalowanie w z
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    katXY = 0.05 * krok #w radianach, obracanie wokół osi Z
+\end_layout
+
+\begin_layout Plain Layout
+
+    #x, y, z = obrotXY(x, y, z, katXY)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    katXZ = 0.05 * krok #w radianach, obracanie wokół osi Y
+\end_layout
+
+\begin_layout Plain Layout
+
+    x, y, z = obrotXZ(x, y, z, katXZ)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    katYZ = 0.05 * krok #w radianach, obracanie wokół osi X
+\end_layout
+
+\begin_layout Plain Layout
+
+    x, y, z = obrotYZ(x, y, z, katYZ)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    #przesx = 0.05 * krok
+\end_layout
+
+\begin_layout Plain Layout
+
+    #przesy = 0.025 * krok
+\end_layout
+
+\begin_layout Plain Layout
+
+    #przesz = - 0.15 * krok
+\end_layout
+
+\begin_layout Plain Layout
+
+    #x = x + przesx  #przesuwanie w kierunku x
+\end_layout
+
+\begin_layout Plain Layout
+
+    #y = y + przesy  #przesuwanie w kierunku y
+\end_layout
+
+\begin_layout Plain Layout
+
+    #z = z + przesz #przesuwanie w kierunku z
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    return x, y, z
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+def obrotXY(x, y, z, katXY):
+\end_layout
+
+\begin_layout Plain Layout
+
+    xt = x * math.cos(katXY) - y * math.sin(katXY) #konieczny import biblioteki
+ math! pomocniczne zmienne, by nie uzywac nadpisanyc x, y, z
+\end_layout
+
+\begin_layout Plain Layout
+
+    yt = x * math.sin(katXY) + y * math.cos(katXY)
+\end_layout
+
+\begin_layout Plain Layout
+
+    zt = z
+\end_layout
+
+\begin_layout Plain Layout
+
+    return xt, yt, zt
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+def obrotXZ(x, y, z, katXZ):
+\end_layout
+
+\begin_layout Plain Layout
+
+    xt = x * math.cos(katXZ) + z * math.sin(katXZ)
+\end_layout
+
+\begin_layout Plain Layout
+
+    yt = y
+\end_layout
+
+\begin_layout Plain Layout
+
+    zt = -x * math.sin(katXZ) + z * math.cos(katXZ)
+\end_layout
+
+\begin_layout Plain Layout
+
+    return xt, yt, zt
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+def obrotYZ(x, y, z, katYZ):
+\end_layout
+
+\begin_layout Plain Layout
+
+    xt = x
+\end_layout
+
+\begin_layout Plain Layout
+
+    yt = y * math.cos(katYZ) - z * math.sin(katYZ)
+\end_layout
+
+\begin_layout Plain Layout
+
+    zt = y * math.sin(katYZ) + z * math.cos(katYZ)
+\end_layout
+
+\begin_layout Plain Layout
+
+    return xt, yt, zt 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+def importujdane():
+\end_layout
+
+\begin_layout Plain Layout
+
+    #nazwa = "szescian.obj"
+\end_layout
+
+\begin_layout Plain Layout
+
+    nazwa = "crowbar.obj"
+\end_layout
+
+\begin_layout Plain Layout
+
+    #nazwa = "teapot.obj"
+\end_layout
+
+\begin_layout Plain Layout
+
+    plikmodelu = open(nazwa, "r").readlines()
+\end_layout
+
+\begin_layout Plain Layout
+
+    wierz = []
+\end_layout
+
+\begin_layout Plain Layout
+
+    trojk = []
+\end_layout
+
+\begin_layout Plain Layout
+
+    for linia in plikmodelu:
+\end_layout
+
+\begin_layout Plain Layout
+
+        lista_slow = linia.split()
+\end_layout
+
+\begin_layout Plain Layout
+
+        for slowo in lista_slow:
+\end_layout
+
+\begin_layout Plain Layout
+
+            if slowo == "v":
+\end_layout
+
+\begin_layout Plain Layout
+
+                x = float(lista_slow[1])
+\end_layout
+
+\begin_layout Plain Layout
+
+                y = float(lista_slow[2])
+\end_layout
+
+\begin_layout Plain Layout
+
+                z = float(lista_slow[3])
+\end_layout
+
+\begin_layout Plain Layout
+
+                wierz.append((x, y, z))
+\end_layout
+
+\begin_layout Plain Layout
+
+            if slowo == "f":
+\end_layout
+
+\begin_layout Plain Layout
+
+                t0 = int(lista_slow[1]) - 1
+\end_layout
+
+\begin_layout Plain Layout
+
+                t1 = int(lista_slow[2]) - 1
+\end_layout
+
+\begin_layout Plain Layout
+
+                t2 = int(lista_slow[3]) - 1
+\end_layout
+
+\begin_layout Plain Layout
+
+                ind = random.randint(0, 2) #losowe kolory z tablicy kolorów
+\end_layout
+
+\begin_layout Plain Layout
+
+                trojk.append((t0, t1, t2, ind))
+\end_layout
+
+\begin_layout Plain Layout
+
+    print wierz
+\end_layout
+
+\begin_layout Plain Layout
+
+    print trojk  
+\end_layout
+
+\begin_layout Plain Layout
+
+    return wierz, trojk 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+main()
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Prawdopodobnie najprostszym sposobem zapisu modelu 3D jest plik Wavefront
+ OBJ.
+ Plik opisujący szcześcian wygląda następująco:
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+v 0 10 10
+\end_layout
+
+\begin_layout Plain Layout
+
+v 0 10 0
+\end_layout
+
+\begin_layout Plain Layout
+
+v 0 0 10
+\end_layout
+
+\begin_layout Plain Layout
+
+v 0 0 0
+\end_layout
+
+\begin_layout Plain Layout
+
+v 10 0 10
+\end_layout
+
+\begin_layout Plain Layout
+
+v 10 10 0
+\end_layout
+
+\begin_layout Plain Layout
+
+v 10 10 10
+\end_layout
+
+\begin_layout Plain Layout
+
+v 10 0 0
+\end_layout
+
+\begin_layout Plain Layout
+
+f 1 2 3
+\end_layout
+
+\begin_layout Plain Layout
+
+f 2 4 3
+\end_layout
+
+\begin_layout Plain Layout
+
+f 5 6 7
+\end_layout
+
+\begin_layout Plain Layout
+
+f 5 8 6
+\end_layout
+
+\begin_layout Plain Layout
+
+f 4 8 5
+\end_layout
+
+\begin_layout Plain Layout
+
+f 3 4 5
+\end_layout
+
+\begin_layout Plain Layout
+
+f 7 6 2
+\end_layout
+
+\begin_layout Plain Layout
+
+f 7 2 1
+\end_layout
+
+\begin_layout Plain Layout
+
+f 4 2 6
+\end_layout
+
+\begin_layout Plain Layout
+
+f 8 4 6
+\end_layout
+
+\begin_layout Plain Layout
+
+f 7 1 3
+\end_layout
+
+\begin_layout Plain Layout
+
+f 7 3 5
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Każda linijka zaczynająca się od 
+\emph on
+v
+\emph default
+ zawiera współrzędne x, y, z wierchołka (v - vertex).
+ Linijka zaczynająca się od 
+\emph on
+f
+\emph default
+ (f - face) wskazuje z których wierzchołków składa się trójkąt.
+ W powyższym pliku widoczne jest 8 wierzchołków i 12 trójkątów.
+ 
+\end_layout
+
+\begin_layout Standard
+Opis jest bardzo podobny do tego stosowanego przez nas na samym początku
+ programu.
+ Różnica dotyczy numeracji.
+ Pliki OBJ zaczynają liczyć wierzchołki od 1, my od 0.
+ Kod odpowiadający za import pliku to:
+\end_layout
+
+\begin_layout LyX-Code
+def importujdane():
+\end_layout
+
+\begin_layout LyX-Code
+    #nazwa = "szescian.obj"
+\end_layout
+
+\begin_layout LyX-Code
+    nazwa = "crowbar.obj"
+\end_layout
+
+\begin_layout LyX-Code
+    #nazwa = "teapot.obj"
+\end_layout
+
+\begin_layout LyX-Code
+    plikmodelu = open(nazwa, "r").readlines()
+\end_layout
+
+\begin_layout LyX-Code
+    wierz = []
+\end_layout
+
+\begin_layout LyX-Code
+    trojk = []
+\end_layout
+
+\begin_layout LyX-Code
+    for linia in plikmodelu:
+\end_layout
+
+\begin_layout LyX-Code
+        lista_slow = linia.split()
+\end_layout
+
+\begin_layout LyX-Code
+        for slowo in lista_slow:
+\end_layout
+
+\begin_layout LyX-Code
+            if slowo == "v":
+\end_layout
+
+\begin_layout LyX-Code
+                x = float(lista_slow[1])
+\end_layout
+
+\begin_layout LyX-Code
+                y = float(lista_slow[2])
+\end_layout
+
+\begin_layout LyX-Code
+                z = float(lista_slow[3])
+\end_layout
+
+\begin_layout LyX-Code
+                wierz.append((x, y, z))
+\end_layout
+
+\begin_layout LyX-Code
+            if slowo == "f":
+\end_layout
+
+\begin_layout LyX-Code
+                t0 = int(lista_slow[1]) - 1
+\end_layout
+
+\begin_layout LyX-Code
+                t1 = int(lista_slow[2]) - 1
+\end_layout
+
+\begin_layout LyX-Code
+                t2 = int(lista_slow[3]) - 1
+\end_layout
+
+\begin_layout LyX-Code
+                ind = random.randint(0, 2) #losowe kolory z tablicy kolorów
+\end_layout
+
+\begin_layout LyX-Code
+                trojk.append((t0, t1, t2, ind))
+\end_layout
+
+\begin_layout LyX-Code
+print wierz
+\end_layout
+
+\begin_layout LyX-Code
+    print trojk  
+\end_layout
+
+\begin_layout LyX-Code
+    return wierz, trojk
+\end_layout
+
+\begin_layout Standard
+Poszczególnym trójkątom zostały przypisane losowe kolory, ponieważ plik
+ OBJ nie zawiera takiej informacji a bryła w jednym kolorze, bez jakiegokolwiek
+ cieniowania sprawiałaby wrażenie płaskiej figury.
+ Uwaga: bardziej zaawansowane pliki OBJ mogą dostarczać dodatkowych informacji
+ jak wektory normalne czy współrzędne tekstur - w takim przypadku powyższy
+ kod może nie działać prawidłowo.
+\end_layout
+
 \begin_layout Section
 Cieniowanie płaskie
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename 1_crowbar.png
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset href
+LatexCommand href
+name "Kod programu do pobrania"
+target "https://github.com/kwahoo2/basic3d-py-eng/blob/master/basic3dengine/eksp-eng-shaded.py"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset href
+LatexCommand href
+name "Model (łom) wczytywany przez program do pobrania"
+target "https://github.com/kwahoo2/basic3d-py-eng/blob/master/basic3dengine/crowbar.obj"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+#!/usr/bin/python
+\end_layout
+
+\begin_layout Plain Layout
+
+# -*- coding: utf-8 -*-
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+import pygame, math, sys, random
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+def main():
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\end_layout
+
+\begin_layout Plain Layout
+
+    xw = 800
+\end_layout
+
+\begin_layout Plain Layout
+
+    yw = 600
+\end_layout
+
+\begin_layout Plain Layout
+
+    screen = pygame.display.set_mode((xw, yw))
+\end_layout
+
+\begin_layout Plain Layout
+
+    lipx = xw * yw #całkowita liczba pikseli
+\end_layout
+
+\begin_layout Plain Layout
+
+    fizxw = 2.0 #"fizyczna" (w jednostach przestrzeni 3D) szerokość okna
+ widzenia
+\end_layout
+
+\begin_layout Plain Layout
+
+    fov = math.radians(75) #określenie szerokosci pola widzenia
+\end_layout
+
+\begin_layout Plain Layout
+
+    zp = 1000.0 #odległość od środka układu współrzednych do "ekranu"
+\end_layout
+
+\begin_layout Plain Layout
+
+    zk = fizxw / (2 * math.tan(fov / 2)) #odległość od "ekranu" do obserwatora
+\end_layout
+
+\begin_layout Plain Layout
+
+    skala = int(xw / fizxw) #skala n pikseli na 1 jednostkę przestrzeni
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    bufram = [] #z-bufor
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    for i in range(0, lipx):
+\end_layout
+
+\begin_layout Plain Layout
+
+        bufram.append(-100000.0) #tworzenie nowej czystej listy dla koloru
+ głębi z (float)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    background_colour = (255,255,255)
+\end_layout
+
+\begin_layout Plain Layout
+
+    screen.fill(background_colour)
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\end_layout
+
+\begin_layout Plain Layout
+
+    zbiorkolor = ((0, 0, 255), (0, 255, 0), (255, 0, 0), (0, 255, 255),
+ (255, 255, 0), (255, 0, 255)) 
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\end_layout
+
+\begin_layout Plain Layout
+
+    chmura, zbiortroj = importujdane() #pobranie sanych z pliku
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\end_layout
+
+\begin_layout Plain Layout
+
+    wektorswiatla = (1.0, 0.0, -1.0) #wektor oświetlenia wykorzystywany przy
+ cieniowaniu
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    running = True #start główeje pętli programu
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\end_layout
+
+\begin_layout Plain Layout
+
+    krok = 0
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    while running:
+\end_layout
+
+\begin_layout Plain Layout
+
+        screen.fill(background_colour) #czyszczenie klatki
+\end_layout
+
+\begin_layout Plain Layout
+
+        for i in range(0, lipx):
+\end_layout
+
+\begin_layout Plain Layout
+
+            bufram[i] = -100000.0 # wypełnianie Z bufora bardzo małymi wartościam
+i Z (daleko od obserwatora)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+        for tr in range(0, len(zbiortroj)): #pętla 12-elementowa, 0-11,
+ bo ostania jest pomijana, len - długość
+\end_layout
+
+\begin_layout Plain Layout
+
+            trojkat = zbiortroj[tr]
+\end_layout
+
+\begin_layout Plain Layout
+
+            #print trojkat
+\end_layout
+
+\begin_layout Plain Layout
+
+            xps = [0, 0, 0] #tymczasowa lista punktów [] to listy, () to
+ krotki 
+\end_layout
+
+\begin_layout Plain Layout
+
+            yps = [0, 0, 0]
+\end_layout
+
+\begin_layout Plain Layout
+
+            zf = [0.0, 0.0, 0.0]
+\end_layout
+
+\begin_layout Plain Layout
+
+            trojktrans = [0.0, 0.0, 0.0] #wierzchołki trójkata po transformacji
+\end_layout
+
+\begin_layout Plain Layout
+
+            for i in range (0, 3):
+\end_layout
+
+\begin_layout Plain Layout
+
+                numerpunktu = trojkat[i] #pobranie indeksu punktu, "zbiortroj"
+ ma wkazywac kolejne punkty z "chmura"
+\end_layout
+
+\begin_layout Plain Layout
+
+                punkt = chmura[numerpunktu] #wybranie kolejnej krotki z
+ krotki "chmura"
+\end_layout
+
+\begin_layout Plain Layout
+
+                x = punkt[0] #wybrany pierwsza współrzedna
+\end_layout
+
+\begin_layout Plain Layout
+
+                y = punkt[1]
+\end_layout
+
+\begin_layout Plain Layout
+
+                z = punkt[2]
+\end_layout
+
+\begin_layout Plain Layout
+
+                x, y, z = transformacja(x, y, z, krok) #wywołanie funcji
+ transformacji
+\end_layout
+
+\begin_layout Plain Layout
+
+                trojktrans[i] = [x, y, z] #trojkat po transformacji, wprowszane
+ na potrzeby wektora normalnego
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+                xp = zk * x /(zp + zk - z) #wyliczenie projekcji dla x-ów
+\end_layout
+
+\begin_layout Plain Layout
+
+                yp = zk * y /(zp + zk - z) #wyliczenie projekcji dla y-ów
+\end_layout
+
+\begin_layout Plain Layout
+
+                #skala = 100 #skala 100 pikseli na 1 jednostkę przestrzeni
+\end_layout
+
+\begin_layout Plain Layout
+
+                xps[i] = int((xw / 2) + (xp * skala)) #wysrodkowanie, skalowanie
+ oraz konwersja do liczby całkowitej
+\end_layout
+
+\begin_layout Plain Layout
+
+                yps[i] = int((yw / 2) - (yp * skala)) #wysrodkowanie, skalowanie
+ i odwrócenie y oraz konwersja do liczby całkowitej
+\end_layout
+
+\begin_layout Plain Layout
+
+                zf[i] = z    
+\end_layout
+
+\begin_layout Plain Layout
+
+            kolortrojk = zbiorkolor[trojkat[3]] #czwarty zrgument trojkata
+ to kolor
+\end_layout
+
+\begin_layout Plain Layout
+
+            #print [xps[0], yps[0], zf[0]], [xps[1], yps[1], zf[1]], [xps[2],
+ yps[2], zf[2]], kolortrojk
+\end_layout
+
+\begin_layout Plain Layout
+
+            normalny = wnormal(trojktrans[0], trojktrans[1], trojktrans[2])
+ #wyliczenie wektora normalnego, potrzebne do oswietlenia
+\end_layout
+
+\begin_layout Plain Layout
+
+            #print normalny
+\end_layout
+
+\begin_layout Plain Layout
+
+            coswektorow = coswekt(normalny, wektorswiatla)
+\end_layout
+
+\begin_layout Plain Layout
+
+            #print coswektorow
+\end_layout
+
+\begin_layout Plain Layout
+
+            kolormod = [0, 0, 0] #dodatkowa lista z kolorami po modyfikacjach
+\end_layout
+
+\begin_layout Plain Layout
+
+            kolormod[0] = int((1 - coswektorow) * kolortrojk[0] * 0.5)
+\end_layout
+
+\begin_layout Plain Layout
+
+            kolormod[1] = int((1 - coswektorow) * kolortrojk[1] * 0.5)
+\end_layout
+
+\begin_layout Plain Layout
+
+            kolormod[2] = int((1 - coswektorow) * kolortrojk[2] * 0.5)
+\end_layout
+
+\begin_layout Plain Layout
+
+            bufram = rysujtrojk([xps[0], yps[0], zf[0]], [xps[1], yps[1],
+ zf[1]], [xps[2], yps[2], zf[2]], kolormod, xw, yw, screen, bufram, zp)
+ #wywołanie rasterizera trójkąta ze zwrotem z-bufora
+\end_layout
+
+\begin_layout Plain Layout
+
+        pygame.display.flip()
+\end_layout
+
+\begin_layout Plain Layout
+
+        krok = krok + 1
+\end_layout
+
+\begin_layout Plain Layout
+
+        for event in pygame.event.get(): #przerwanie pętli
+\end_layout
+
+\begin_layout Plain Layout
+
+            if event.type == pygame.QUIT:
+\end_layout
+
+\begin_layout Plain Layout
+
+                running = False
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+def rysujtrojk(wierz0, wierz1, wierz2, kolortrojk, xw, yw, screen, bufram,
+ zp): #rasterizer trójkątów
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    while 1: #prosty algorytm sortowania 3 elementów
+\end_layout
+
+\begin_layout Plain Layout
+
+        if wierz0[1] > wierz1[1]:
+\end_layout
+
+\begin_layout Plain Layout
+
+            wierztemp = wierz0
+\end_layout
+
+\begin_layout Plain Layout
+
+            wierz0 = wierz1
+\end_layout
+
+\begin_layout Plain Layout
+
+            wierz1 = wierztemp    
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+        if wierz1[1] > wierz2[1]:
+\end_layout
+
+\begin_layout Plain Layout
+
+            wierztemp = wierz1
+\end_layout
+
+\begin_layout Plain Layout
+
+            wierz1 = wierz2
+\end_layout
+
+\begin_layout Plain Layout
+
+            wierz2 = wierztemp 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+        if wierz0[1] <= wierz1[1] and wierz1[1] <= wierz2[1]: #przerwanie
+ gdy uporządkowane rosnąco wg 2 elementu
+\end_layout
+
+\begin_layout Plain Layout
+
+            break 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    #print wierz0, wierz1, wierz2
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    xps0 = wierz0[0] #od lewej do prawej
+\end_layout
+
+\begin_layout Plain Layout
+
+    yps0 = wierz0[1] #z góry na dół
+\end_layout
+
+\begin_layout Plain Layout
+
+    zf0 = wierz0[2] #głębość Z w float
+\end_layout
+
+\begin_layout Plain Layout
+
+    xps1 = wierz1[0] #współrzedne wierzchołków trojkąta od najmwyzsze (najmniejs
+ze y) do najniższego
+\end_layout
+
+\begin_layout Plain Layout
+
+    yps1 = wierz1[1]
+\end_layout
+
+\begin_layout Plain Layout
+
+    zf1 = wierz1[2]
+\end_layout
+
+\begin_layout Plain Layout
+
+    xps2 = wierz2[0]
+\end_layout
+
+\begin_layout Plain Layout
+
+    yps2 = wierz2[1]
+\end_layout
+
+\begin_layout Plain Layout
+
+    zf2 = wierz2[2]
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    dx10 = xps1 - xps0
+\end_layout
+
+\begin_layout Plain Layout
+
+    dx21 = xps2 - xps1
+\end_layout
+
+\begin_layout Plain Layout
+
+    dx20 = xps2 - xps0
+\end_layout
+
+\begin_layout Plain Layout
+
+    dy10 = yps1 - yps0
+\end_layout
+
+\begin_layout Plain Layout
+
+    dy21 = yps2 - yps1
+\end_layout
+
+\begin_layout Plain Layout
+
+    dy20 = yps2 - yps0
+\end_layout
+
+\begin_layout Plain Layout
+
+    dzf10 = zf1 - zf0
+\end_layout
+
+\begin_layout Plain Layout
+
+    dzf21 = zf2 - zf1
+\end_layout
+
+\begin_layout Plain Layout
+
+    dzf20 = zf2 - zf0
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    if dx10 != 0 or dy10 != 0:
+\end_layout
+
+\begin_layout Plain Layout
+
+        dwyp10 = math.sqrt(float(math.pow(dx10,2)+math.pow((dy10),2))) #początkowa
+ odległosć między punktami na XY dla 10
+\end_layout
+
+\begin_layout Plain Layout
+
+        zprop10 = dzf10 / dwyp10 #proporcja przesunięcia XY dla 10 do przesunięc
+ia Z do użycia na krawędziach trójkąta
+\end_layout
+
+\begin_layout Plain Layout
+
+    else:
+\end_layout
+
+\begin_layout Plain Layout
+
+        zprop10 = 0
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\end_layout
+
+\begin_layout Plain Layout
+
+    if dx21 != 0 or dy21 != 0:
+\end_layout
+
+\begin_layout Plain Layout
+
+        dwyp21 = math.sqrt(float(math.pow(dx21,2)+math.pow((dy21),2)))
+\end_layout
+
+\begin_layout Plain Layout
+
+        zprop21 = dzf21 / dwyp21
+\end_layout
+
+\begin_layout Plain Layout
+
+    else:
+\end_layout
+
+\begin_layout Plain Layout
+
+        zprop21 = 0
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    if dx20 != 0 or dy20 != 0:
+\end_layout
+
+\begin_layout Plain Layout
+
+        dwyp20 = math.sqrt(float(math.pow(dx20,2)+math.pow((dy20),2)))
+\end_layout
+
+\begin_layout Plain Layout
+
+        zprop20 = dzf20 / dwyp20
+\end_layout
+
+\begin_layout Plain Layout
+
+    else:
+\end_layout
+
+\begin_layout Plain Layout
+
+        zprop20 = 0
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+#rasterizer buduje trójkąty z linii poziomych      
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    lewy = False #pomocnicza zmienna, jeśli true, to 1 jest po lewej 0-2
+\end_layout
+
+\begin_layout Plain Layout
+
+    if dy10 != 0  and dy21 != 0 and dy20 != 0: #tylko gdy y są różne, bez
+ dzielenia przez 0 
+\end_layout
+
+\begin_layout Plain Layout
+
+        if ((float(dx10) / float(dy10)) < (float(dx20) / float(dy20))):#przypade
+k gdy 1 jest po lewej 0-2, konwersja int do float dla wyzszej dokładności
+ porównania
+\end_layout
+
+\begin_layout Plain Layout
+
+            lewy = True
+\end_layout
+
+\begin_layout Plain Layout
+
+        else:
+\end_layout
+
+\begin_layout Plain Layout
+
+            lewy = False 
+\end_layout
+
+\begin_layout Plain Layout
+
+    elif dy10 == 0 and dy21 != 0 and dy20 != 0: #gdy poziomo miedzy 0-1
+\end_layout
+
+\begin_layout Plain Layout
+
+        if dx10 < 0:
+\end_layout
+
+\begin_layout Plain Layout
+
+            lewy = True
+\end_layout
+
+\begin_layout Plain Layout
+
+        else:
+\end_layout
+
+\begin_layout Plain Layout
+
+            lewy = False
+\end_layout
+
+\begin_layout Plain Layout
+
+    elif dy10 != 0 and dy21 == 0 and dy20 != 0: #gdy poziomo miedzy 2-1
+\end_layout
+
+\begin_layout Plain Layout
+
+        if dx21 > 0:
+\end_layout
+
+\begin_layout Plain Layout
+
+            lewy = True
+\end_layout
+
+\begin_layout Plain Layout
+
+        else:
+\end_layout
+
+\begin_layout Plain Layout
+
+            lewy = False
+\end_layout
+
+\begin_layout Plain Layout
+
+    else: #zwykle gdy poziomo miedzy 2-0, to 1-0 i 2-1, linia prosta pozioma
+\end_layout
+
+\begin_layout Plain Layout
+
+        if dx20 > 0:
+\end_layout
+
+\begin_layout Plain Layout
+
+            lewy = True
+\end_layout
+
+\begin_layout Plain Layout
+
+        else:
+\end_layout
+
+\begin_layout Plain Layout
+
+            lewy = False
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+        
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    if (lewy == True):#przypadek gdy 1 jest po lewej 0-2
+\end_layout
+
+\begin_layout Plain Layout
+
+        for y in range(yps0, yps2): 
+\end_layout
+
+\begin_layout Plain Layout
+
+            if y < yps1: #gdy jest się między 0 a 1 
+\end_layout
+
+\begin_layout Plain Layout
+
+                if dy10 != 0:
+\end_layout
+
+\begin_layout Plain Layout
+
+                    x0 = xps0 + (y-yps0) * dx10 / dy10 #x0 zawsze po lewej
+ w stosunku do x1
+\end_layout
+
+\begin_layout Plain Layout
+
+                else:
+\end_layout
+
+\begin_layout Plain Layout
+
+                    x0 = xps1
+\end_layout
+
+\begin_layout Plain Layout
+
+                if dy20 != 0:
+\end_layout
+
+\begin_layout Plain Layout
+
+                    x1 = xps0 + (y-yps0) * dx20 / dy20
+\end_layout
+
+\begin_layout Plain Layout
+
+                else:
+\end_layout
+
+\begin_layout Plain Layout
+
+                    x1 = xps0
+\end_layout
+
+\begin_layout Plain Layout
+
+                dwyp = math.sqrt(float(math.pow(xps1 - x0,2)+math.pow((yps1
+ - y),2))) #x0 i y podąza między punktami 1 i 0
+\end_layout
+
+\begin_layout Plain Layout
+
+                z0 = zf1 - dwyp * zprop10 #z każdym krokiem mniejsza odległośc,
+ to coraz mniej odejmowane od punktu końcowego zf1
+\end_layout
+
+\begin_layout Plain Layout
+
+                dwyp = math.sqrt(float(math.pow(xps2 - x1,2)+math.pow((yps2
+ - y),2))) #x1 i y podąza między 2 i 0
+\end_layout
+
+\begin_layout Plain Layout
+
+                z1 = zf2 - dwyp * zprop20
+\end_layout
+
+\begin_layout Plain Layout
+
+                #print x0, y, z0
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+            else: #gdy jest się między 1 a 2
+\end_layout
+
+\begin_layout Plain Layout
+
+                if dy21 != 0:
+\end_layout
+
+\begin_layout Plain Layout
+
+                    x0 = xps1 + (y-yps1) * dx21 / dy21
+\end_layout
+
+\begin_layout Plain Layout
+
+                else:
+\end_layout
+
+\begin_layout Plain Layout
+
+                    x0 = xps1
+\end_layout
+
+\begin_layout Plain Layout
+
+                if dy20 != 0:
+\end_layout
+
+\begin_layout Plain Layout
+
+                    x1 = xps0 + (y-yps0) * dx20 / dy20
+\end_layout
+
+\begin_layout Plain Layout
+
+                else:
+\end_layout
+
+\begin_layout Plain Layout
+
+                    x1 = xps2
+\end_layout
+
+\begin_layout Plain Layout
+
+                dwyp = math.sqrt(float(math.pow(xps2 - x0,2)+math.pow((yps2
+ - y),2))) #x0 i y podąza między 2 i 1
+\end_layout
+
+\begin_layout Plain Layout
+
+                z0 = zf2 - dwyp * zprop21
+\end_layout
+
+\begin_layout Plain Layout
+
+                dwyp = math.sqrt(float(math.pow(xps2 - x1,2)+math.pow((yps2
+ - y),2))) #x1 i y podąza między 2 i 0
+\end_layout
+
+\begin_layout Plain Layout
+
+                z1 = zf2 - dwyp * zprop20
+\end_layout
+
+\begin_layout Plain Layout
+
+                #print x0, y, z0
+\end_layout
+
+\begin_layout Plain Layout
+
+            for x in range(x0, x1):
+\end_layout
+
+\begin_layout Plain Layout
+
+                if x >=0 and x < xw and y >=0 and y < yw: #ograniczenie
+ tylko do obszaru ekranu
+\end_layout
+
+\begin_layout Plain Layout
+
+                    #screen.set_at((x, y), (0, 0, 0))
+\end_layout
+
+\begin_layout Plain Layout
+
+                    z = z1 - ((z1 - z0) / float(x1 - x0)) * float(x1 - x)
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+                    #print x, y, z
+\end_layout
+
+\begin_layout Plain Layout
+
+                    pozpix = x + y * xw
+\end_layout
+
+\begin_layout Plain Layout
+
+                    if (z > bufram[pozpix] and z < zp): #zapisuje piksel
+ tylko gdy jest blizej obserwatora niz pozostałe
+\end_layout
+
+\begin_layout Plain Layout
+
+                        screen.set_at((x, y), (kolortrojk))
+\end_layout
+
+\begin_layout Plain Layout
+
+                        bufram[pozpix] = z
+\end_layout
+
+\begin_layout Plain Layout
+
+    else:
+\end_layout
+
+\begin_layout Plain Layout
+
+        for y in range(yps0, yps2): 
+\end_layout
+
+\begin_layout Plain Layout
+
+            if y < yps1: #gdy jest się między 0 a 1 
+\end_layout
+
+\begin_layout Plain Layout
+
+                if dy10 != 0:
+\end_layout
+
+\begin_layout Plain Layout
+
+                    x1 = xps0 + (y-yps0) * dx10 / dy10 #zamiana początku
+ z koncem w tym przypadku
+\end_layout
+
+\begin_layout Plain Layout
+
+                else:
+\end_layout
+
+\begin_layout Plain Layout
+
+                    x1 = xps1
+\end_layout
+
+\begin_layout Plain Layout
+
+                if dy20 != 0:                
+\end_layout
+
+\begin_layout Plain Layout
+
+                    x0 = xps0 + (y-yps0) * dx20 / dy20
+\end_layout
+
+\begin_layout Plain Layout
+
+                else:
+\end_layout
+
+\begin_layout Plain Layout
+
+                    x0 = xps0
+\end_layout
+
+\begin_layout Plain Layout
+
+                dwyp = math.sqrt(float(math.pow(xps1 - x1,2)+math.pow((yps1
+ - y),2))) #x1 i y podąza między punktami 1 i 0
+\end_layout
+
+\begin_layout Plain Layout
+
+                z1 = zf1 - dwyp * zprop10 #z każdym krokiem mniejsza odległośc,
+ to coraz mniej odejmowane od punktu końcowego zf1
+\end_layout
+
+\begin_layout Plain Layout
+
+                dwyp = math.sqrt(float(math.pow(xps2 - x0,2)+math.pow((yps2
+ - y),2))) #x0 i y podąza między 2 i 0
+\end_layout
+
+\begin_layout Plain Layout
+
+                z0 = zf2 - dwyp * zprop20
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+            else: #gdy jest się między 1 a 2
+\end_layout
+
+\begin_layout Plain Layout
+
+                if dy21 != 0:
+\end_layout
+
+\begin_layout Plain Layout
+
+                    x1 = xps1 + (y-yps1) * dx21 / dy21
+\end_layout
+
+\begin_layout Plain Layout
+
+                else:
+\end_layout
+
+\begin_layout Plain Layout
+
+                    x1 = xps1
+\end_layout
+
+\begin_layout Plain Layout
+
+                if dy20 != 0:
+\end_layout
+
+\begin_layout Plain Layout
+
+                    x0 = xps0 + (y-yps0) * dx20 / dy20
+\end_layout
+
+\begin_layout Plain Layout
+
+                else:
+\end_layout
+
+\begin_layout Plain Layout
+
+                    x0 = xps2
+\end_layout
+
+\begin_layout Plain Layout
+
+                dwyp = math.sqrt(float(math.pow(xps2 - x1,2)+math.pow((yps2
+ - y),2))) #x1 i y podąza między 2 i 1
+\end_layout
+
+\begin_layout Plain Layout
+
+                z1 = zf2 - dwyp * zprop21
+\end_layout
+
+\begin_layout Plain Layout
+
+                dwyp = math.sqrt(float(math.pow(xps2 - x0,2)+math.pow((yps2
+ - y),2))) #x0 i y podąza między 2 i 0
+\end_layout
+
+\begin_layout Plain Layout
+
+                z0 = zf2 - dwyp * zprop20
+\end_layout
+
+\begin_layout Plain Layout
+
+            for x in range(x0, x1):
+\end_layout
+
+\begin_layout Plain Layout
+
+                if x >=0 and x < xw and y >=0 and y < yw: #ograniczenie
+ tylko do obszaru ekranu
+\end_layout
+
+\begin_layout Plain Layout
+
+                    #screen.set_at((x, y), (0, 0, 0))
+\end_layout
+
+\begin_layout Plain Layout
+
+                    z = z1 - ((z1 - z0) / float(x1 - x0)) * float(x1 - x)
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+                    pozpix = x + y * xw
+\end_layout
+
+\begin_layout Plain Layout
+
+                    if (z > bufram[pozpix] and z < zp): #zapisuje piksel
+ tylko gdy jest blizej obserwatora niz pozostałe
+\end_layout
+
+\begin_layout Plain Layout
+
+                        screen.set_at((x, y), (kolortrojk))
+\end_layout
+
+\begin_layout Plain Layout
+
+                        bufram[pozpix] = z
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    #pygame.display.flip()
+\end_layout
+
+\begin_layout Plain Layout
+
+    return bufram
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+def transformacja(x, y, z, krok):
+\end_layout
+
+\begin_layout Plain Layout
+
+    y = y - 200.0
+\end_layout
+
+\begin_layout Plain Layout
+
+    #wzrostx = 0.03 * krok
+\end_layout
+
+\begin_layout Plain Layout
+
+    #wzrosty = 0.03 * krok
+\end_layout
+
+\begin_layout Plain Layout
+
+    #wzrostz = -0.02 * krok
+\end_layout
+
+\begin_layout Plain Layout
+
+    #x = x * (1 + wzrostx) #skalowanie w x
+\end_layout
+
+\begin_layout Plain Layout
+
+    #y = y * (1 + wzrosty) #skalowanie w y
+\end_layout
+
+\begin_layout Plain Layout
+
+    #z = z * (1 + wzrostz) #skalowanie w z
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    katXY = 0.05 * krok #w radianach, obracanie wokół osi Z
+\end_layout
+
+\begin_layout Plain Layout
+
+    #x, y, z = obrotXY(x, y, z, katXY)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    katXZ = 0.05 * krok #w radianach, obracanie wokół osi Y
+\end_layout
+
+\begin_layout Plain Layout
+
+    x, y, z = obrotXZ(x, y, z, katXZ)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    katYZ = 0.05 * krok #w radianach, obracanie wokół osi X
+\end_layout
+
+\begin_layout Plain Layout
+
+    #x, y, z = obrotYZ(x, y, z, katYZ)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    #przesx = 0.05 * krok
+\end_layout
+
+\begin_layout Plain Layout
+
+    #przesy = 0.025 * krok
+\end_layout
+
+\begin_layout Plain Layout
+
+    #przesz = - 1.0 * krok
+\end_layout
+
+\begin_layout Plain Layout
+
+    #x = x + przesx  #przesuwanie w kierunku x
+\end_layout
+
+\begin_layout Plain Layout
+
+    #y = y + przesy  #przesuwanie w kierunku y
+\end_layout
+
+\begin_layout Plain Layout
+
+    #z = z + przesz #przesuwanie w kierunku z
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    return x, y, z
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+def obrotXY(x, y, z, katXY):
+\end_layout
+
+\begin_layout Plain Layout
+
+    xt = x * math.cos(katXY) - y * math.sin(katXY) #konieczny import biblioteki
+ math! pomocniczne zmienne, by nie uzywac nadpisanyc x, y, z
+\end_layout
+
+\begin_layout Plain Layout
+
+    yt = x * math.sin(katXY) + y * math.cos(katXY)
+\end_layout
+
+\begin_layout Plain Layout
+
+    zt = z
+\end_layout
+
+\begin_layout Plain Layout
+
+    return xt, yt, zt
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+def obrotXZ(x, y, z, katXZ):
+\end_layout
+
+\begin_layout Plain Layout
+
+    xt = x * math.cos(katXZ) + z * math.sin(katXZ)
+\end_layout
+
+\begin_layout Plain Layout
+
+    yt = y
+\end_layout
+
+\begin_layout Plain Layout
+
+    zt = -x * math.sin(katXZ) + z * math.cos(katXZ)
+\end_layout
+
+\begin_layout Plain Layout
+
+    return xt, yt, zt
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+def obrotYZ(x, y, z, katYZ):
+\end_layout
+
+\begin_layout Plain Layout
+
+    xt = x
+\end_layout
+
+\begin_layout Plain Layout
+
+    yt = y * math.cos(katYZ) - z * math.sin(katYZ)
+\end_layout
+
+\begin_layout Plain Layout
+
+    zt = y * math.sin(katYZ) + z * math.cos(katYZ)
+\end_layout
+
+\begin_layout Plain Layout
+
+    return xt, yt, zt 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+def wnormal(wierz0, wierz1, wierz2): #kalkulacja wektora normalnego dla
+ trójkąta
+\end_layout
+
+\begin_layout Plain Layout
+
+    normalny = [0.0, 0.0, 0.0]
+\end_layout
+
+\begin_layout Plain Layout
+
+    U = [wierz1[0] - wierz0[0], wierz1[1] - wierz0[1], wierz1[2] - wierz0[2]]
+ #metoda http://www.opengl.org/wiki/Calculating_a_Surface_Normal
+\end_layout
+
+\begin_layout Plain Layout
+
+    V = [wierz2[0] - wierz0[0], wierz2[1] - wierz0[1], wierz2[2] - wierz0[2]]
+\end_layout
+
+\begin_layout Plain Layout
+
+    normalny[0] = U[1] * V[2] - U[2] * V[1]
+\end_layout
+
+\begin_layout Plain Layout
+
+    normalny[1] = U[2] * V[0] - U[0] * V[2]
+\end_layout
+
+\begin_layout Plain Layout
+
+    normalny[2] = U[0] * V[1] - U[1] * V[0]
+\end_layout
+
+\begin_layout Plain Layout
+
+    return normalny
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+def coswekt(wekt0, wekt1): #obliczenie cosinusa miedzy wektorami http://www.maths
+isfun.com/algebra/vectors-dot-product.html
+\end_layout
+
+\begin_layout Plain Layout
+
+    wektdlug0 = math.sqrt((math.pow(wekt0[0], 2) + math.pow(wekt0[1], 2) +
+ math.pow(wekt0[2], 2))) #obliczenie długości wektora 
+\end_layout
+
+\begin_layout Plain Layout
+
+    wektdlug1 = math.sqrt((math.pow(wekt1[0], 2) + math.pow(wekt1[1], 2) +
+ math.pow(wekt1[2], 2)))
+\end_layout
+
+\begin_layout Plain Layout
+
+    iloczynskal = (wekt0[0] * wekt1[0]) + (wekt0[1] * wekt1[1]) + (wekt0[2]
+ * wekt1[2])
+\end_layout
+
+\begin_layout Plain Layout
+
+    coswektor = iloczynskal / (wektdlug0 * wektdlug1)
+\end_layout
+
+\begin_layout Plain Layout
+
+    return coswektor
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+def importujdane():
+\end_layout
+
+\begin_layout Plain Layout
+
+    #nazwa = "szescian.obj"
+\end_layout
+
+\begin_layout Plain Layout
+
+    nazwa = "crowbar.obj"
+\end_layout
+
+\begin_layout Plain Layout
+
+    #nazwa = "teapot.obj"
+\end_layout
+
+\begin_layout Plain Layout
+
+    plikmodelu = open(nazwa, "r").readlines()
+\end_layout
+
+\begin_layout Plain Layout
+
+    wierz = []
+\end_layout
+
+\begin_layout Plain Layout
+
+    trojk = []
+\end_layout
+
+\begin_layout Plain Layout
+
+    for linia in plikmodelu:
+\end_layout
+
+\begin_layout Plain Layout
+
+        lista_slow = linia.split()
+\end_layout
+
+\begin_layout Plain Layout
+
+        for slowo in lista_slow:
+\end_layout
+
+\begin_layout Plain Layout
+
+            if slowo == "v":
+\end_layout
+
+\begin_layout Plain Layout
+
+                x = float(lista_slow[1])
+\end_layout
+
+\begin_layout Plain Layout
+
+                y = float(lista_slow[2])
+\end_layout
+
+\begin_layout Plain Layout
+
+                z = float(lista_slow[3])
+\end_layout
+
+\begin_layout Plain Layout
+
+                wierz.append((x, y, z))
+\end_layout
+
+\begin_layout Plain Layout
+
+            if slowo == "f":
+\end_layout
+
+\begin_layout Plain Layout
+
+                t0 = int(lista_slow[1]) - 1
+\end_layout
+
+\begin_layout Plain Layout
+
+                t1 = int(lista_slow[2]) - 1
+\end_layout
+
+\begin_layout Plain Layout
+
+                t2 = int(lista_slow[3]) - 1
+\end_layout
+
+\begin_layout Plain Layout
+
+                ind  = 2
+\end_layout
+
+\begin_layout Plain Layout
+
+                #ind = random.randint(0, 2) #losowe kolory z tablicy kolorów
+\end_layout
+
+\begin_layout Plain Layout
+
+                trojk.append((t0, t1, t2, ind))
+\end_layout
+
+\begin_layout Plain Layout
+
+    print wierz
+\end_layout
+
+\begin_layout Plain Layout
+
+    print trojk  
+\end_layout
+
+\begin_layout Plain Layout
+
+    return wierz, trojk 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+main()
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+By mózg ludzki zinterpretował jednokolową bryłę jako trójwymiarową należy
+ jej nadać cieniowanie, czyli zmianę jasności poszególnych ścian w zależności
+ od ustawienia względem źródła światła.
+ Wykorzystamy cieniowanie płaskie, czyli jasność danej ściany będzie jednakowa
+ na całej jej powierzchni.
+ Będzie ona zależeć wyłącznie od kąta padania światła na powierzchnię, nie
+ będzie zależeć od odległości źródła światła.
+\end_layout
+
+\begin_layout Standard
+Potrzebujęmy dwóch rzeczy: wektora światła i wektora normalnego (prostopadłego
+ do powierzchni) dla każdej ze ścian.
 \end_layout
 
 \end_body
