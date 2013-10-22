@@ -167,16 +167,22 @@ ntować widząć na bieżąco wyniki naszych prac:
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
 $ python  
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
 Python 2.7.4 (default, Jul  5 2013, 08:21:57)  [GCC 4.7.3] on linux2 Type "help",
  "copyright", "credits" or "license" for more information.
  
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
 >>> 
 \end_layout
 
@@ -191,6 +197,8 @@ Ctrl-D
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
 $ python naszprogram.py
 \end_layout
 
@@ -210,6 +218,7 @@ target "https://github.com/kwahoo2/basic3d-py-eng/blob/master/basic3dengine/1_py
 
 \begin_layout LyX-Code
 \begin_inset listings
+lstparams "basicstyle={\scriptsize},tabsize=4"
 inline false
 status open
 
@@ -348,14 +357,20 @@ True
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
 for event in pygame.event.get(): #przerwanie petli
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
             if event.type == pygame.QUIT:
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
                 running = False
 \end_layout
 
@@ -539,10 +554,14 @@ Zapiszemy to w naszym kodzie jako:
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
 xp = zk * x /(zp + zk - z) #wyliczenie projekcji dla x-ów
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
 yp = zk * y /(zp + zk - z) #wyliczenie projekcji dla y-ów
 \end_layout
 
@@ -584,11 +603,15 @@ W kodzie:
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
 xps = int((xw / 2) + (xp * skala)) #wysrodkowanie, skalowanie oraz konwersja
  do liczby całkowitej
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
 yps = int((yw / 2) - (yp * skala)) #wysrodkowanie, skalowanie i odwrócenie
  y oraz konwersja do liczby całkowitej
 \end_layout
@@ -634,6 +657,7 @@ target "https://github.com/kwahoo2/basic3d-py-eng/blob/master/basic3dengine/2_mu
 
 \begin_layout Quotation
 \begin_inset listings
+lstparams "basicstyle={\scriptsize},tabsize=4"
 inline false
 status open
 
@@ -927,10 +951,14 @@ Omówmy jego działanie krok po kroku.
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
 background_colour = (255,255,255)
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
 screen.fill(background_colour) 
 \end_layout
 
@@ -945,6 +973,8 @@ Należało wprowadzić współrzędne (x, y, z) dla każdego z wierzchołków:
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
 p0 = (1.0, -3.0, 1.0)
 \end_layout
 
@@ -973,6 +1003,8 @@ Dalej zbieramy wszystkie wierzchołki od p0 do p7 w jedną wspólną krotkę
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
 chmura = (p0, p1, p2, p3, p4, p5, p6, p7)
 \end_layout
 
@@ -981,6 +1013,8 @@ Tu warto wspomnieć, że wszystko można by zrobić w jednym przypisaniu:
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
 chmura = ((1.0, -3.0, 1.0), (1.0, -1.0, 1.0), (-1.0, -3.0, 1.0), (-1.0, -1.0, 1.0),
  (1.0, -3.0, -1.0), (1.0, -1.0, -1.0), (-1.0, -3.0, -1.0), (-1.0, -1.0, -1.0))
 \end_layout
@@ -992,22 +1026,32 @@ Wewnątrz głównej pętli programu tworzymy podrzędną, której każde przejś
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
 for i in range(0, len(chmura)):
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
     punkt = chmura[i]
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
     x = punkt[0]
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
     y = punkt[1]
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
     z = punkt[2]
 \end_layout
 
@@ -1056,6 +1100,8 @@ print
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
 screen.set_at((xps, yps), (0, 0, 0))
 \end_layout
 
@@ -1064,6 +1110,8 @@ Oraz, już po wyjściu z pętli for, dokonuję wyświetlenia tego co narysowałe
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
 pygame.display.flip()
 \end_layout
 
@@ -1088,10 +1136,14 @@ Dodatkowo, na początku programu wprowadziłem odległość (zk) obserwator -
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
 fov = math.radians(75)
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
 zk = fizxw / (2 * math.tan(fov / 2))
 \end_layout
 
@@ -1148,6 +1200,7 @@ target "https://github.com/kwahoo2/basic3d-py-eng/blob/master/basic3dengine/3_kr
 
 \begin_layout Standard
 \begin_inset listings
+lstparams "basicstyle={\scriptsize},tabsize=4"
 inline false
 status open
 
@@ -1575,6 +1628,8 @@ chmura
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
 troj0 = (0, 1, 3)
 \end_layout
 
@@ -1592,26 +1647,38 @@ Dla każdego trójkąta wykonywana jest następująca pętla:
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
 for i in range (0, 3):
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
     numerpunktu = trojkat[i] 
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
     punkt = chmura[numerpunktu]
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
     x = punkt[0]
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
     y = punkt[1]
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
     z = punkt[2]
 \end_layout
 
@@ -1624,18 +1691,26 @@ ków:
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
 xps = [0, 0, 0]
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
 yps = [0, 0, 0]
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
 xps[i] = int((xw / 2) + (xp * skala))
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
 yps[i] = int((yw / 2) - (yp * skala))
 \end_layout
 
@@ -1646,14 +1721,20 @@ Listy te są odczytywane już po wyjściu z wyżej opisywanej pętli i wykorzyst
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
 pygame.draw.line(screen, (0, 0, 0), (xps[0], yps[0]), (xps[1], yps[1]), 1)
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
 pygame.draw.line(screen, (0, 0, 0), (xps[1], yps[1]), (xps[2], yps[2]), 1)
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
 pygame.draw.line(screen, (0, 0, 0), (xps[2], yps[2]), (xps[0], yps[0]), 1)
 \end_layout
 
@@ -1703,6 +1784,7 @@ target "https://github.com/kwahoo2/basic3d-py-eng/blob/master/basic3dengine/4_tr
 
 \begin_layout Standard
 \begin_inset listings
+lstparams "basicstyle={\scriptsize},tabsize=4"
 inline false
 status open
 
@@ -2330,10 +2412,14 @@ x1
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
 x0 = xps0 + (y-yps0) * dx10 / dy10
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
 x1 = xps0 + (y-yps0) * dx20 / dy20
 \end_layout
 
@@ -2383,10 +2469,14 @@ x1
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
 x0 = xps1 + (y-yps1) * dx21 / dy21 
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
 x1 = xps0 + (y-yps0) * dx20 / dy20
 \end_layout
 
@@ -2396,14 +2486,20 @@ Ostatnią częścią jest narysowanie pikseli z których zbudowany jest poziomy
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
 for x in range(x0, x1):
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
     if x >=0 and x < xw and y >=0 and y < yw: 
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
         screen.set_at((x, y), (0, 0, 0))
 \end_layout
 
@@ -2456,22 +2552,32 @@ z0
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
 dzf10 = zf1 - zf0
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
 dwyp10 = math.sqrt(float(math.pow(dx10,2)+math.pow((dy10),2)))
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
 zprop10 = dzf10 / dwyp10
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
 dwyp = math.sqrt(float(math.pow(xps1 - x0,2)+math.pow((yps1 - y),2)))
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
 z0 = zf1 - dwyp * zprop10
 \end_layout
 
@@ -2545,6 +2651,8 @@ Wyliczając w ten sam sposób z1, możemy poznać współrzędną z dla każdego
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
 z = z1 - ((z1 - z0) / float(x1 - x0)) * float(x1 - x) 
 \end_layout
 
@@ -2554,6 +2662,8 @@ Nasz przykładowy program zmienia kolor piksela w zależoności od współrzędn
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
 screen.set_at((x, y), (int(abs(z * 20)), 255 - int(abs(z * 20)), 0))
 \end_layout
 
@@ -2582,6 +2692,8 @@ Omówimy przypadek, gdy wierzchołek
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
 if ((float(dx10) / float(dy10)) < (float(dx20) / float(dy20)))
 \end_layout
 
@@ -2617,6 +2729,7 @@ target "https://github.com/kwahoo2/basic3d-py-eng/blob/master/basic3dengine/5_ra
 
 \begin_layout Standard
 \begin_inset listings
+lstparams "basicstyle={\scriptsize},tabsize=4"
 inline false
 status open
 
@@ -4146,6 +4259,8 @@ Rasteryzer trójkątów zamknięty jest w osobnej funkcji:
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
 def rysujtrojk(wierz0, wierz1, wierz2, kolortrojk, xw, yw, screen, bufram,
  zp):
 \end_layout
@@ -4170,14 +4285,20 @@ z
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
 if (z > bufram[pozpix] and z < zp):
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
     screen.set_at((x, y), (kolortrojk))
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
     bufram[pozpix] = z
 \end_layout
 
@@ -4190,6 +4311,8 @@ pozpix
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
 pozpix = x + y * xw
 \end_layout
 
@@ -4203,10 +4326,14 @@ bufram
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
 for i in range(0, lipx):
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
         bufram.append(-100000.0)
 \end_layout
 
@@ -4216,6 +4343,8 @@ Jego wartość jest też zwracana po wykonaniu funckji rasteryzacji każdego
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
 bufram = rysujtrojk([xps[0], yps[0], zf[0]], [xps[1], yps[1], zf[1]], [xps[2],
  yps[2], zf[2]], kolortrojk , xw, yw, screen, bufram, zp)
 \end_layout
@@ -4243,22 +4372,32 @@ Funkcja rasteryzatora zawiera jeszcze jeden ważny fragment, a mianowicie
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
 while 1:
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
         if wierz0[1] > wierz1[1]:
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
             wierztemp = wierz0
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
             wierz0 = wierz1
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
             wierz1 = wierztemp    
 \end_layout
 
@@ -4267,18 +4406,26 @@ while 1:
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
         if wierz1[1] > wierz2[1]:
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
             wierztemp = wierz1
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
             wierz1 = wierz2
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
             wierz2 = wierztemp 
 \end_layout
 
@@ -4287,10 +4434,14 @@ while 1:
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
         if wierz0[1] <= wierz1[1] and wierz1[1] <= wierz2[1]:
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
 break 
 \end_layout
 
@@ -4327,6 +4478,8 @@ Jako, że ściany bryły mają mieć różne kolory, została wprowadzona dodatk
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
 zbiorkolor = ((0, 0, 255), (0, 255, 0), (255, 0, 0), (0, 255, 255), (255,
  255, 0), (255, 0, 255))
 \end_layout
@@ -4337,6 +4490,8 @@ Teraz definicja każdego trójkąta jest czteroelementowa - 3 wierzchołki i
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
 troj0 = (0, 1, 3, 0)
 \end_layout
 
@@ -4345,6 +4500,8 @@ Odczyt składowych z palety odbywa się przed wywołaniem rasteryzatora:
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
 kolortrojk = zbiorkolor[trojkat[3]]
 \end_layout
 
@@ -4353,6 +4510,8 @@ Są one potem wykorzystywane w chwili wstawiania konkretnych pikseli:
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
 screen.set_at((x, y), (kolortrojk))
 \end_layout
 
@@ -4381,6 +4540,8 @@ Przykładowe transformacje można zobaczyć w funkcji:
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
 def transformacja(x, y, z, krok):
 \end_layout
 
@@ -4396,10 +4557,14 @@ krok
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
 przesx = 0.05 * krok
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
 x = x + przesx
 \end_layout
 
@@ -4408,10 +4573,14 @@ Podobnie dla Y i Z będzie to:
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
 y = y + przesy
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
 z = z + przesz
 \end_layout
 
@@ -4427,14 +4596,20 @@ Chcąc przeskalować bryłę w którymś z kierunków musimy za to mnożyć wsp�
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
 x = x * (1 + wzrostx)
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
 y = y * (1 + wzrosty)     
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
 z = z * (1 + wzrostz)
 \end_layout
 
@@ -4551,23 +4726,33 @@ Co w kodzie programu ma postać:
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
 def obrotXY(x, y, z, katXY):     
 \end_layout
 
 \begin_deeper
 \begin_layout LyX-Code
+
+\size footnotesize
 xt = x * math.cos(katXY) - y * math.sin(katXY)     
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
 yt = x * math.sin(katXY) + y * math.cos(katXY)
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
 zt = z     
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
 return xt, yt, zt
 \end_layout
 
@@ -4593,23 +4778,33 @@ z
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
 def obrotXZ(x, y, z, katXZ):     
 \end_layout
 
 \begin_deeper
 \begin_layout LyX-Code
+
+\size footnotesize
 xt = x * math.cos(katXZ) + z * math.sin(katXZ)     
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
 yt = y     
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
 zt = -x * math.sin(katXZ) + z * math.cos(katXZ)     
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
 return xt, yt, zt
 \end_layout
 
@@ -4635,23 +4830,33 @@ z
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
 def obrotYZ(x, y, z, katYZ):     
 \end_layout
 
 \begin_deeper
 \begin_layout LyX-Code
+
+\size footnotesize
 xt = x     
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
 yt = y * math.cos(katYZ) - z * math.sin(katYZ)     
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
 zt = y * math.sin(katYZ) + z * math.cos(katYZ)     
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
 return xt, yt, zt 
 \end_layout
 
@@ -4694,6 +4899,7 @@ target "https://github.com/kwahoo2/basic3d-py-eng/blob/master/basic3dengine/crow
 
 \begin_layout Standard
 \begin_inset listings
+lstparams "basicstyle={\scriptsize},tabsize=4"
 inline false
 status open
 
@@ -6361,98 +6567,146 @@ Opis jest bardzo podobny do tego stosowanego przez nas na samym początku
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
 def importujdane():
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
     #nazwa = "szescian.obj"
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
     nazwa = "crowbar.obj"
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
     #nazwa = "teapot.obj"
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
     plikmodelu = open(nazwa, "r").readlines()
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
     wierz = []
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
     trojk = []
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
     for linia in plikmodelu:
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
         lista_slow = linia.split()
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
         for slowo in lista_slow:
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
             if slowo == "v":
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
                 x = float(lista_slow[1])
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
                 y = float(lista_slow[2])
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
                 z = float(lista_slow[3])
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
                 wierz.append((x, y, z))
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
             if slowo == "f":
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
                 t0 = int(lista_slow[1]) - 1
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
                 t1 = int(lista_slow[2]) - 1
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
                 t2 = int(lista_slow[3]) - 1
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
                 ind = random.randint(0, 2) #losowe kolory z tablicy kolorów
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
                 trojk.append((t0, t1, t2, ind))
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
 print wierz
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
     print trojk  
 \end_layout
 
 \begin_layout LyX-Code
+
+\size footnotesize
     return wierz, trojk
 \end_layout
 
@@ -6503,6 +6757,7 @@ target "https://github.com/kwahoo2/basic3d-py-eng/blob/master/basic3dengine/crow
 
 \begin_layout Standard
 \begin_inset listings
+lstparams "basicstyle={\scriptsize},language=Python,tabsize=4"
 inline false
 status open
 
@@ -8194,8 +8449,251 @@ By mózg ludzki zinterpretował jednokolową bryłę jako trójwymiarową należ
 \end_layout
 
 \begin_layout Standard
-Potrzebujęmy dwóch rzeczy: wektora światła i wektora normalnego (prostopadłego
- do powierzchni) dla każdej ze ścian.
+Potrzebujemy dwóch rzeczy: wektora światła i wektora normalnego (prostopadłego
+ do powierzchni) każdej ze ścian.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename 14_wekt.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Każdy trójkąt ma dwa wektory normalne.
+ Mają one ten sam kierunek, ale przeciwne zwroty.
+ Potrzebujemy tylko jednego z nich, ważne żeby wybór był spójny dla wszystkich
+ trójkątów modelu - np.
+ wszystkie wektory, które są zorientowane na zewnątrz bryły.
+ Cieniowanie uzależnimy od cosinusa kąta między wektorem normalnym a wektorem
+ światła.
+ W kodzie są za to odpowiedzialne te linijki:
+\end_layout
+
+\begin_layout LyX-Code
+
+\size footnotesize
+            kolormod[0] = int((1 - coswektorow) * kolortrojk[0] * 0.5)
+\end_layout
+
+\begin_layout LyX-Code
+
+\size footnotesize
+            kolormod[1] = int((1 - coswektorow) * kolortrojk[1] * 0.5)
+\end_layout
+
+\begin_layout LyX-Code
+
+\size footnotesize
+            kolormod[2] = int((1 - coswektorow) * kolortrojk[2] * 0.5)
+\end_layout
+
+\begin_layout Standard
+
+\emph on
+kolortrojk
+\emph default
+ to wstępnie zdefiniowany kolor dla danego trójkąta, 
+\emph on
+kolormod
+\emph default
+ to kolor z uwzględnieniem cieniowania.
+ Gdy kąt między wektorem światła i wektorem normalnym będzie wynosił 0 radianów
+\begin_inset Formula $\left(\cos0=1\right)$
+\end_inset
+
+ to 
+\emph on
+kolormod
+\emph default
+ wyniesie 0.
+ Odpowiada to ścianie odwróconej tyłem do źródła światła.
+ Gdy natomiast kąt wyniesie 3,14 radianów, czyli 180 stopni
+\begin_inset Formula $\left(\cos\pi=-1\right)$
+\end_inset
+
+to 
+\emph on
+kolormod
+\emph default
+ będzie równy 
+\emph on
+kolortrojk
+\emph default
+, czyli ściana jest skierowana prosto na źródło światła.
+\end_layout
+
+\begin_layout Standard
+Wektor normalny można obliczyć znająć współrzędne wierchołków trójkąta.
+ Metoda opisana jest na 
+\begin_inset CommandInset href
+LatexCommand href
+name "wiki biblioteki OpenGL"
+target "http://www.opengl.org/wiki/Calculating_a_Surface_Normal"
+
+\end_inset
+
+ i w kodzie ma postać funkcji:
+\end_layout
+
+\begin_layout LyX-Code
+
+\size footnotesize
+def wnormal(wierz0, wierz1, wierz2):
+\end_layout
+
+\begin_layout LyX-Code
+
+\size footnotesize
+    normalny = [0.0, 0.0, 0.0]
+\end_layout
+
+\begin_layout LyX-Code
+
+\size footnotesize
+    U = [wierz1[0] - wierz0[0], wierz1[1] - wierz0[1], wierz1[2] - wierz0[2]]
+\end_layout
+
+\begin_layout LyX-Code
+
+\size footnotesize
+    V = [wierz2[0] - wierz0[0], wierz2[1] - wierz0[1], wierz2[2] - wierz0[2]]
+\end_layout
+
+\begin_layout LyX-Code
+
+\size footnotesize
+    normalny[0] = U[1] * V[2] - U[2] * V[1]
+\end_layout
+
+\begin_layout LyX-Code
+
+\size footnotesize
+    normalny[1] = U[2] * V[0] - U[0] * V[2]
+\end_layout
+
+\begin_layout LyX-Code
+
+\size footnotesize
+    normalny[2] = U[0] * V[1] - U[1] * V[0]
+\end_layout
+
+\begin_layout LyX-Code
+
+\size footnotesize
+    return normalny
+\end_layout
+
+\begin_layout Standard
+Mając wektor normalny dla danego trójkąta i wcześniej zdefiniowany wektor
+ światła 
+\emph on
+wektorswiatla = (1.0, 0.0, -1.0)
+\emph default
+ możemy wyliczyć cosinus kąta między wektorami.
+ Jest to możliwe dzięki instnieniu dwóch metod obliczania iloczynu skalarnego
+ wektorów.
+\end_layout
+
+\begin_layout Standard
+Pierwsza to wykorzystanie długości wektorów i kąta między nimi:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\vec{a}\circ\vec{b}=\left|\vec{a}\right|\cdot\left|\vec{b}\right|\cdot\cos\alpha$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\left|\vec{a}\right|=\sqrt{\left(a_{0}\right)^{2}+\left(a_{1}\right)^{2}+\left(a_{2}\right)^{2}}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\left|\vec{b}\right|=\sqrt{\left(b_{0}\right)^{2}+\left(b_{1}\right)^{2}+\left(b_{2}\right)^{2}}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Druga metoda to wykorzystanie współrzędnych wektorów 
+\begin_inset Formula $\left[a_{0},a_{1},a_{2}\right]$
+\end_inset
+
+ i 
+\begin_inset Formula $\left[b_{0},b_{1},b_{2}\right]$
+\end_inset
+
+:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\vec{a}\circ\vec{b}=\left[a_{0},a_{1},a_{2}\right]\circ\left[b_{0},b_{1},b_{2}\right]=a_{0}b_{0}+a_{1}b_{1}+a_{2}b_{2}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Ostatecznie:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\cos\alpha=\frac{a_{0}b_{0}+a_{1}b_{1}+a_{2}b_{2}}{\left|\vec{a}\right|\cdot\left|\vec{b}\right|}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Co jest zawarte w funkcji:
+\end_layout
+
+\begin_layout LyX-Code
+
+\size footnotesize
+def coswekt(wekt0, wekt1):
+\end_layout
+
+\begin_layout LyX-Code
+
+\size footnotesize
+    wektdlug0 = math.sqrt((math.pow(wekt0[0], 2) + math.pow(wekt0[1], 2) +
+ math.pow(wekt0[2], 2)))
+\end_layout
+
+\begin_layout LyX-Code
+
+\size footnotesize
+    wektdlug1 = math.sqrt((math.pow(wekt1[0], 2) + math.pow(wekt1[1], 2) +
+ math.pow(wekt1[2], 2)))
+\end_layout
+
+\begin_layout LyX-Code
+
+\size footnotesize
+    iloczynskal = (wekt0[0] * wekt1[0]) + (wekt0[1] * wekt1[1]) + (wekt0[2]
+ * wekt1[2])
+\end_layout
+
+\begin_layout LyX-Code
+
+\size footnotesize
+    coswektor = iloczynskal / (wektdlug0 * wektdlug1)
+\end_layout
+
+\begin_layout LyX-Code
+
+\size footnotesize
+    return coswektor
 \end_layout
 
 \end_body
