@@ -16,12 +16,18 @@ eksp-eng-obj-import.py – j.w. z importem bryły z pliku obj
 
 eksp-eng-shaded.py – j.w. z cieniowaniem płaskim 
 
-Obrazek: ![Obrazek](https://github.com/kwahoo2/basic3d-py-eng/tree/master/basic3dengine/1_crowbar.png?raw=true)
+Pic:
 
-Filmik: [![Filmik](https://img.youtube.com/vi/SpJZFgCjs_g/0.jpg)](https://www.youtube.com/watch?v=SpJZFgCjs_g)
+![Lom][lom]
+
+[lom]: https://github.com/kwahoo2/basic3d-py-eng/blob/master/basic3dengine/1_crowbar.png "Crowbar"
 
 
-##English
+Vid:
+[![Filmik](https://img.youtube.com/vi/SpJZFgCjs_g/0.jpg)](https://www.youtube.com/watch?v=SpJZFgCjs_g)
+
+
+## English
 
 The creation stages of a simple 3D engine in Python. There is a commentary (unfortunately only in Polish at this moment) in the PDF and HTML file. The engine displaying a colored cube/crowbar/teapot (possibly with flat shading) runs entirely software, without OpenGL or other auxiliary libraries, as it's all about learning the basics. The whole thing is not advanced, in fact it's very simplified, so that it can be understood by the widest possible range of people. The software and hardware requirements are described in the HTML and PDF files. However, I do not recommend copying the listings from those files (they may not work), it is better to run the PY files right away. PY files:
 
