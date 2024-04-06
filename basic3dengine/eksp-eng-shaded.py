@@ -164,11 +164,11 @@ def rysujtrojk(wierz0, wierz1, wierz2, kolortrojk, xw, yw, screen, bufram, zp): 
         for y in range(yps0, yps2): 
             if y < yps1: #gdy jest się między 0 a 1 
                 if dy10 != 0:
-                    x0 = xps0 + (y-yps0) * dx10 / dy10 #x0 zawsze po lewej w stosunku do x1
+                    x0 = xps0 + (y-yps0) * dx10 // dy10 #x0 zawsze po lewej w stosunku do x1
                 else:
                     x0 = xps1
                 if dy20 != 0:
-                    x1 = xps0 + (y-yps0) * dx20 / dy20
+                    x1 = xps0 + (y-yps0) * dx20 // dy20
                 else:
                     x1 = xps0
                 dwyp = math.sqrt(float(math.pow(xps1 - x0,2)+math.pow((yps1 - y),2))) #x0 i y podąza między punktami 1 i 0
@@ -179,11 +179,11 @@ def rysujtrojk(wierz0, wierz1, wierz2, kolortrojk, xw, yw, screen, bufram, zp): 
 
             else: #gdy jest się między 1 a 2
                 if dy21 != 0:
-                    x0 = xps1 + (y-yps1) * dx21 / dy21
+                    x0 = xps1 + (y-yps1) * dx21 // dy21
                 else:
                     x0 = xps1
                 if dy20 != 0:
-                    x1 = xps0 + (y-yps0) * dx20 / dy20
+                    x1 = xps0 + (y-yps0) * dx20 // dy20
                 else:
                     x1 = xps2
                 dwyp = math.sqrt(float(math.pow(xps2 - x0,2)+math.pow((yps2 - y),2))) #x0 i y podąza między 2 i 1
@@ -204,11 +204,11 @@ def rysujtrojk(wierz0, wierz1, wierz2, kolortrojk, xw, yw, screen, bufram, zp): 
         for y in range(yps0, yps2): 
             if y < yps1: #gdy jest się między 0 a 1 
                 if dy10 != 0:
-                    x1 = xps0 + (y-yps0) * dx10 / dy10 #zamiana początku z koncem w tym przypadku
+                    x1 = xps0 + (y-yps0) * dx10 // dy10 #zamiana początku z koncem w tym przypadku
                 else:
                     x1 = xps1
                 if dy20 != 0:                
-                    x0 = xps0 + (y-yps0) * dx20 / dy20
+                    x0 = xps0 + (y-yps0) * dx20 // dy20
                 else:
                     x0 = xps0
                 dwyp = math.sqrt(float(math.pow(xps1 - x1,2)+math.pow((yps1 - y),2))) #x1 i y podąza między punktami 1 i 0
@@ -218,11 +218,11 @@ def rysujtrojk(wierz0, wierz1, wierz2, kolortrojk, xw, yw, screen, bufram, zp): 
 
             else: #gdy jest się między 1 a 2
                 if dy21 != 0:
-                    x1 = xps1 + (y-yps1) * dx21 / dy21
+                    x1 = xps1 + (y-yps1) * dx21 // dy21
                 else:
                     x1 = xps1
                 if dy20 != 0:
-                    x0 = xps0 + (y-yps0) * dx20 / dy20
+                    x0 = xps0 + (y-yps0) * dx20 // dy20
                 else:
                     x0 = xps2
                 dwyp = math.sqrt(float(math.pow(xps2 - x1,2)+math.pow((yps2 - y),2))) #x1 i y podąza między 2 i 1
@@ -325,8 +325,8 @@ def importujdane():
                 ind  = 2
                 #ind = random.randint(0, 2) #losowe kolory z tablicy kolorów
                 trojk.append((t0, t1, t2, ind))
-    print wierz
-    print trojk  
+    print (wierz)
+    print (trojk)
     return wierz, trojk 
 
 main()

@@ -33,9 +33,9 @@ def main():
         screen.fill(background_colour) #czyszczenie klatki
 
         for i in range(0, len(chmura)): #pętla 8-elementowa, 0-7, bo ostatnia jest pomijana, len - dlugosc
-            print i
+            print (i)
             punkt = chmura[i] #wybranie kolejnej krotki z nadrzędnej
-            print punkt
+            print (punkt)
             x = punkt[0] #wybrana pierwsza współrzedna
             y = punkt[1]
             z = punkt[2]
@@ -43,8 +43,8 @@ def main():
             yp = zk * y /(zp + zk - z) #wyliczenie projekcji dla y-ów
             xps = int((xw / 2) + (xp * skala)) #wyśrodkowanie, skalowanie oraz konwersja do liczby całkowitej
             yps = int((yw / 2) - (yp * skala)) #wyśrodkowanie, skalowanie i odwrocenie y oraz konwersja do liczby całkowitej
-            print "x"+str(xps) #wypisanie wartści w konsoli
-            print "y"+str(yps)
+            print ("x"+str(xps)) #wypisanie wartści w konsoli
+            print ("y"+str(yps))
             screen.set_at((xps, yps), (0, 0, 0)) #narysowanie punktu w zadanym miejscu
             pygame.draw.circle(screen, (0, 0, 0), (xps, yps), 10, 1) #obrysowanie punktów okręgami dla lepszej widoczności
 

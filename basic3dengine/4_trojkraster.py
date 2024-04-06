@@ -47,19 +47,19 @@ def main():
         zprop20 = dzf20 / dwyp20
 
 #rasterizer buduje trójkąty z linii poziomych        
-        if ((float(dx10) / float(dy10)) < (float(dx20) / float(dy20))):#przypadek gdy 1 jest po lewej 0-2
+        if ((float(dx10) / float(dy10)) < (float(dx20) // float(dy20))):#przypadek gdy 1 jest po lewej 0-2
             for y in range(yps0, yps2): 
                 if y < yps1: #gdy jest się między 0 a 1 
-                    x0 = xps0 + (y-yps0) * dx10 / dy10
-                    x1 = xps0 + (y-yps0) * dx20 / dy20
+                    x0 = xps0 + (y-yps0) * dx10 // dy10
+                    x1 = xps0 + (y-yps0) * dx20 // dy20
                     dwyp = math.sqrt(float(math.pow(xps1 - x0,2)+math.pow((yps1 - y),2))) #x0 i y podąza między punktami 1 i 0
                     z0 = zf1 - dwyp * zprop10 #z każdym krokiem mniejsza odległośc, to coraz mniej odejmowane od punktu końcowego zf1
                     dwyp = math.sqrt(float(math.pow(xps2 - x1,2)+math.pow((yps2 - y),2))) #x1 i y podąza między 2 i 0
                     z1 = zf2 - dwyp * zprop20
 
                 else: #gdy jest się między 1 a 2
-                    x0 = xps1 + (y-yps1) * dx21 / dy21
-                    x1 = xps0 + (y-yps0) * dx20 / dy20
+                    x0 = xps1 + (y-yps1) * dx21 // dy21
+                    x1 = xps0 + (y-yps0) * dx20 // dy20
                     dwyp = math.sqrt(float(math.pow(xps2 - x0,2)+math.pow((yps2 - y),2))) #x0 i y podąza między 2 i 1
                     z0 = zf2 - dwyp * zprop21
                     dwyp = math.sqrt(float(math.pow(xps2 - x1,2)+math.pow((yps2 - y),2))) #x1 i y podąza między 2 i 0
@@ -75,16 +75,16 @@ def main():
         else:
             for y in range(yps0, yps2): 
                 if y < yps1: #gdy jest się między 0 a 1 
-                    x1 = xps0 + (y-yps0) * dx10 / dy10 #zamiana początku z koncem w tym przypadku
-                    x0 = xps0 + (y-yps0) * dx20 / dy20
+                    x1 = xps0 + (y-yps0) * dx10 // dy10 #zamiana początku z koncem w tym przypadku
+                    x0 = xps0 + (y-yps0) * dx20 // dy20
                     dwyp = math.sqrt(float(math.pow(xps1 - x1,2)+math.pow((yps1 - y),2))) #x1 i y podąza między punktami 1 i 0
                     z1 = zf1 - dwyp * zprop10 #z każdym krokiem mniejsza odległośc, to coraz mniej odejmowane od punktu końcowego zf1
                     dwyp = math.sqrt(float(math.pow(xps2 - x0,2)+math.pow((yps2 - y),2))) #x0 i y podąza między 2 i 0
                     z0 = zf2 - dwyp * zprop20
 
                 else: #gdy jest się między 1 a 2
-                    x1 = xps1 + (y-yps1) * dx21 / dy21
-                    x0 = xps0 + (y-yps0) * dx20 / dy20
+                    x1 = xps1 + (y-yps1) * dx21 // dy21
+                    x0 = xps0 + (y-yps0) * dx20 // dy20
                     dwyp = math.sqrt(float(math.pow(xps2 - x1,2)+math.pow((yps2 - y),2))) #x1 i y podąza między 2 i 1
                     z1 = zf2 - dwyp * zprop21
                     dwyp = math.sqrt(float(math.pow(xps2 - x0,2)+math.pow((yps2 - y),2))) #x0 i y podąza między 2 i 0
